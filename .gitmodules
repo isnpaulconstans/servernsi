@@ -1,0 +1,3 @@
+[submodule "Jirafeau"]
+	path = Jirafeau
+	url = https://gitlab.com/mojo42/Jirafeau
