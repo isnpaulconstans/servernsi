@@ -1,0 +1,473 @@
+2020/07/10 00:04:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594339458}
+2020/07/10 00:14:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594340058}
+2020/07/10 00:24:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594340658}
+2020/07/10 00:34:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594341258}
+2020/07/10 00:40:24 ...rm/session_delete.go:211:Delete() [I] [SQL] DELETE FROM `deleted_branch` WHERE (deleted_unix < ?) []interface {}{1594255224}
+2020/07/10 00:40:24 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `owner_id`, `lower_name`, `name`, `description`, `website`, `default_branch`, `num_watches`, `num_stars`, `num_forks`, `num_issues`, `num_closed_issues`, `num_pulls`, `num_closed_pulls`, `num_milestones`, `num_closed_milestones`, `is_private`, `is_empty`, `is_archived`, `is_mirror`, `is_fork`, `fork_id`, `size`, `is_fsck_enabled`, `close_issues_via_commit_in_any_branch`, `topics`, `avatar`, `created_unix`, `updated_unix` FROM `repository` WHERE (id > 0)
+2020/07/10 00:40:24 ...xorm/session_find.go:199:noCacheFind() [I] [SQL] SELECT `id`, `owner_id`, `lower_name`, `name`, `description`, `website`, `default_branch`, `num_watches`, `num_stars`, `num_forks`, `num_issues`, `num_closed_issues`, `num_pulls`, `num_closed_pulls`, `num_milestones`, `num_closed_milestones`, `is_private`, `is_empty`, `is_archived`, `is_mirror`, `is_fork`, `fork_id`, `size`, `is_fsck_enabled`, `close_issues_via_commit_in_any_branch`, `topics`, `avatar`, `created_unix`, `updated_unix` FROM `repository` WHERE (id>0 AND is_fsck_enabled=?) LIMIT 50 []interface {}{true}
+2020/07/10 00:40:24 ...xorm/session_find.go:199:noCacheFind() [I] [SQL] SELECT `id`, `type`, `name`, `is_actived`, `is_sync_enabled`, `cfg`, `created_unix`, `updated_unix` FROM `login_source`
+2020/07/10 00:40:24 .../xorm/session_raw.go:143:queryBytes() [I] [SQL] SELECT repo.id FROM `repository` repo WHERE repo.num_watches!=(SELECT COUNT(*) FROM `watch` WHERE repo_id=repo.id)
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{26}
+2020/07/10 00:40:24 .../xorm/session_raw.go:143:queryBytes() [I] [SQL] SELECT repo.id FROM `repository` repo WHERE repo.num_stars!=(SELECT COUNT(*) FROM `star` WHERE repo_id=repo.id)
+2020/07/10 00:40:24 .../xorm/session_raw.go:143:queryBytes() [I] [SQL] SELECT label.id FROM `label` WHERE label.num_issues!=(SELECT COUNT(*) FROM `issue_label` WHERE label_id=label.id)
+2020/07/10 00:40:24 .../xorm/session_raw.go:143:queryBytes() [I] [SQL] SELECT `user`.id FROM `user` WHERE `user`.num_repos!=(SELECT COUNT(*) FROM `repository` WHERE owner_id=`user`.id)
+2020/07/10 00:40:24 .../xorm/session_raw.go:143:queryBytes() [I] [SQL] SELECT `issue`.id FROM `issue` WHERE `issue`.num_comments!=(SELECT COUNT(*) FROM `comment` WHERE issue_id=`issue`.id AND type=0)
+2020/07/10 00:40:24 .../xorm/session_raw.go:143:queryBytes() [I] [SQL] SELECT repo.id FROM `repository` repo WHERE repo.num_closed_issues!=(SELECT COUNT(*) FROM `issue` WHERE repo_id=repo.id AND is_closed=? AND is_pull=?) []interface {}{true, false}
+2020/07/10 00:40:24 .../xorm/session_raw.go:143:queryBytes() [I] [SQL] SELECT repo.id FROM `repository` repo WHERE repo.num_closed_pulls!=(SELECT COUNT(*) FROM `issue` WHERE repo_id=repo.id AND is_closed=? AND is_pull=?) []interface {}{true, true}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{1}
+2020/07/10 00:40:24 .../xorm/session_raw.go:143:queryBytes() [I] [SQL] SELECT repo.id FROM `repository` repo WHERE repo.num_forks!=(SELECT COUNT(*) FROM `repository` WHERE fork_id=repo.id)
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{2}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{6}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{17}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{23}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{26}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{21}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{7}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{22}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{15}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{12}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{10}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{18}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{9}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{31}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{12}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{13}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{19}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{15}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{14}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{24}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{14}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{20}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{16}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{1}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{1}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{2}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{6}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{17}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{23}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{21}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{7}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{22}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{15}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{12}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{10}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{18}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{9}
+2020/07/10 00:40:24 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{31}
+2020/07/10 00:40:25 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{12}
+2020/07/10 00:40:25 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{13}
+2020/07/10 00:40:25 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{19}
+2020/07/10 00:40:25 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{15}
+2020/07/10 00:40:25 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{14}
+2020/07/10 00:40:25 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{24}
+2020/07/10 00:40:25 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{14}
+2020/07/10 00:40:26 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{20}
+2020/07/10 00:40:26 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{16}
+2020/07/10 00:40:26 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{1}
+2020/07/10 00:44:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594341858}
+2020/07/10 00:54:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594342458}
+2020/07/10 01:04:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594343058}
+2020/07/10 01:14:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594343658}
+2020/07/10 01:24:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594344258}
+2020/07/10 01:34:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594344858}
+2020/07/10 01:44:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594345458}
+2020/07/10 01:54:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594346058}
+2020/07/10 02:04:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594346658}
+2020/07/10 02:14:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594347258}
+2020/07/10 02:24:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594347858}
+2020/07/10 02:34:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594348458}
+2020/07/10 02:44:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594349058}
+2020/07/10 02:54:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594349658}
+2020/07/10 03:04:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594350258}
+2020/07/10 03:14:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594350858}
+2020/07/10 03:24:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594351458}
+2020/07/10 03:34:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594352058}
+2020/07/10 03:44:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594352658}
+2020/07/10 03:54:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594353258}
+2020/07/10 04:04:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594353858}
+2020/07/10 04:14:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594354458}
+2020/07/10 04:24:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594355058}
+2020/07/10 04:34:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594355658}
+2020/07/10 04:44:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594356258}
+2020/07/10 04:54:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594356858}
+2020/07/10 05:04:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594357458}
+2020/07/10 05:14:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594358058}
+2020/07/10 05:24:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594358658}
+2020/07/10 05:34:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594359258}
+2020/07/10 05:44:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594359858}
+2020/07/10 05:54:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594360458}
+2020/07/10 06:04:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594361058}
+2020/07/10 06:14:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594361658}
+2020/07/10 06:24:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594362258}
+2020/07/10 06:34:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594362858}
+2020/07/10 06:44:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594363458}
+2020/07/10 06:54:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594364058}
+2020/07/10 07:04:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594364658}
+2020/07/10 07:14:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594365258}
+2020/07/10 07:24:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594365858}
+2020/07/10 07:34:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594366458}
+2020/07/10 07:44:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594367058}
+2020/07/10 07:54:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594367658}
+2020/07/10 08:04:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594368258}
+2020/07/10 08:14:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594368858}
+2020/07/10 08:24:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594369458}
+2020/07/10 08:34:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594370058}
+2020/07/10 08:44:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594370658}
+2020/07/10 08:54:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594371258}
+2020/07/10 09:04:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594371858}
+2020/07/10 09:14:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594372458}
+2020/07/10 09:24:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594373058}
+2020/07/10 09:34:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594373658}
+2020/07/10 09:44:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594374258}
+2020/07/10 09:54:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594374858}
+2020/07/10 10:04:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594375458}
+2020/07/10 10:14:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594376058}
+2020/07/10 10:24:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594376658}
+2020/07/10 10:34:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594377258}
+2020/07/10 10:44:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594377858}
+2020/07/10 10:54:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594378458}
+2020/07/10 11:04:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594379058}
+2020/07/10 11:14:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594379658}
+2020/07/10 11:24:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594380258}
+2020/07/10 11:34:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594380858}
+2020/07/10 11:44:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594381458}
+2020/07/10 11:54:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594382058}
+2020/07/10 12:04:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594382658}
+2020/07/10 12:14:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594383258}
+2020/07/10 12:24:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594383858}
+2020/07/10 12:34:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594384458}
+2020/07/10 12:44:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594385058}
+2020/07/10 12:54:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594385658}
+2020/07/10 13:04:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594386258}
+2020/07/10 13:14:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594386858}
+2020/07/10 13:24:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594387458}
+2020/07/10 13:34:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594388058}
+2020/07/10 13:44:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594388658}
+2020/07/10 13:54:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594389258}
+2020/07/10 14:04:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594389858}
+2020/07/10 14:14:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594390458}
+2020/07/10 14:24:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594391058}
+2020/07/10 14:34:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594391658}
+2020/07/10 14:44:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594392258}
+2020/07/10 14:54:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594392858}
+2020/07/10 15:04:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594393458}
+2020/07/10 15:14:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594394058}
+2020/07/10 15:24:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594394658}
+2020/07/10 15:34:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594395258}
+2020/07/10 15:44:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594395858}
+2020/07/10 15:54:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594396458}
+2020/07/10 16:04:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594397058}
+2020/07/10 16:14:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594397658}
+2020/07/10 16:24:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594398258}
+2020/07/10 16:34:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594398858}
+2020/07/10 16:44:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594399458}
+2020/07/10 16:54:18 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594400058}
+2020/07/10 16:53:15 ...dules/setting/log.go:269:newLogService() [I] Gitea Log Mode: File(File:info)
+2020/07/10 16:53:15 ...les/setting/cache.go:42:newCacheService() [I] Cache Service Enabled
+2020/07/10 16:53:16 ...s/setting/session.go:45:newSessionService() [I] Session Service Enabled
+2020/07/10 16:53:16 routers/init.go:49:initDBEngine() [I] Beginning ORM engine initialization.
+2020/07/10 16:53:16 routers/init.go:51:initDBEngine() [I] ORM engine initialization attempt #1/10...
+2020/07/10 16:53:17 ...-xorm/xorm/engine.go:329:Ping() [I] PING DATABASE sqlite3
+2020/07/10 16:53:17 .../xorm/session_raw.go:143:queryBytes() [I] [SQL] SELECT name FROM sqlite_master WHERE type='table' and name = ? []interface {}{"version"}
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:264:IsColumnExist() [I] [SQL] SELECT name FROM sqlite_master WHERE type='table' and name = ? and ((sql like '%`id`%') or (sql like '%[id]%')) [version]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:264:IsColumnExist() [I] [SQL] SELECT name FROM sqlite_master WHERE type='table' and name = ? and ((sql like '%`version`%') or (sql like '%[version]%')) [version]
+2020/07/10 16:53:17 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `id`, `version` FROM `version` WHERE `id`=? LIMIT 1 []interface {}{1}
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:363:GetTables() [I] [SQL] SELECT name FROM sqlite_master WHERE type='table'
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [user]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [user]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [public_key]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [public_key]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [access_token]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [access_token]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [repository]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [repository]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [deploy_key]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [deploy_key]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [collaboration]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [collaboration]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [access]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [access]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [upload]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [upload]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [watch]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [watch]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [star]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [star]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [follow]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [follow]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [action]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [action]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [issue]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [issue]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [pull_request]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [pull_request]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [comment]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [comment]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [attachment]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [attachment]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [label]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [label]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [issue_label]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [issue_label]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [milestone]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [milestone]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [mirror]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [mirror]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [release]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [release]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [login_source]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [login_source]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [webhook]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [webhook]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [hook_task]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [hook_task]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [team]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [team]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [org_user]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [org_user]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [team_user]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [team_user]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [team_repo]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [team_repo]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [notice]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [notice]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [email_address]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [email_address]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [notification]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [notification]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [issue_user]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [issue_user]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [lfs_meta_object]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [lfs_meta_object]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [two_factor]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [two_factor]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [gpg_key]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [gpg_key]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [gpg_key_import]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [gpg_key_import]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [repo_unit]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [repo_unit]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [repo_redirect]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [repo_redirect]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [external_login_user]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [external_login_user]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [protected_branch]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [protected_branch]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [user_open_id]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [user_open_id]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [issue_watch]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [issue_watch]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [commit_status]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [commit_status]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [stopwatch]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [stopwatch]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [tracked_time]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [tracked_time]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [deleted_branch]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [deleted_branch]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [repo_indexer_status]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [repo_indexer_status]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [issue_dependency]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [issue_dependency]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [lfs_lock]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [lfs_lock]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [reaction]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [reaction]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [issue_assignees]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [issue_assignees]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [u2f_registration]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [u2f_registration]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [team_unit]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [team_unit]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [review]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [review]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [oauth2_application]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [oauth2_application]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [oauth2_authorization_code]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [oauth2_authorization_code]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [oauth2_grant]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [oauth2_grant]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [topic]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [topic]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [repo_topic]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [repo_topic]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [version]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [version]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [oauth2_session]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [oauth2_session]
+2020/07/10 16:53:17 models/models.go:305:NewEngine() [W] Table user Column diff_view_style db default is '''', struct default is ''
+2020/07/10 16:53:17 models/models.go:305:NewEngine() [W] Table user Column theme db default is '''', struct default is ''
+2020/07/10 16:53:17 routers/init.go:84:GlobalInit() [I] ORM engine initialization successful!
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:363:GetTables() [I] [SQL] SELECT name FROM sqlite_master WHERE type='table'
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [user]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [user]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [public_key]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [public_key]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [access_token]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [access_token]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [repository]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [repository]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [deploy_key]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [deploy_key]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [collaboration]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [collaboration]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [access]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [access]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [upload]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [upload]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [watch]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [watch]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [star]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [star]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [follow]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [follow]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [action]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [action]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [issue]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [issue]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [pull_request]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [pull_request]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [comment]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [comment]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [attachment]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [attachment]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [label]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [label]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [issue_label]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [issue_label]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [milestone]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [milestone]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [mirror]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [mirror]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [release]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [release]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [login_source]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [login_source]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [webhook]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [webhook]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [hook_task]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [hook_task]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [team]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [team]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [org_user]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [org_user]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [team_user]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [team_user]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [team_repo]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [team_repo]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [notice]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [notice]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [email_address]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [email_address]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [notification]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [notification]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [issue_user]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [issue_user]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [lfs_meta_object]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [lfs_meta_object]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [two_factor]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [two_factor]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [gpg_key]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [gpg_key]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [gpg_key_import]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [gpg_key_import]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [repo_unit]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [repo_unit]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [repo_redirect]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [repo_redirect]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [external_login_user]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [external_login_user]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [protected_branch]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [protected_branch]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [user_open_id]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [user_open_id]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [issue_watch]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [issue_watch]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [commit_status]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [commit_status]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [stopwatch]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [stopwatch]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [tracked_time]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [tracked_time]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [deleted_branch]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [deleted_branch]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [repo_indexer_status]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [repo_indexer_status]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [issue_dependency]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [issue_dependency]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [lfs_lock]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [lfs_lock]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [reaction]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [reaction]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [issue_assignees]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [issue_assignees]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [u2f_registration]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [u2f_registration]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [team_unit]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [team_unit]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [review]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [review]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [oauth2_application]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [oauth2_application]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [oauth2_authorization_code]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [oauth2_authorization_code]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [oauth2_grant]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [oauth2_grant]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [topic]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [topic]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [repo_topic]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [repo_topic]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [version]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [version]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:280:GetColumns() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='table' and name = ? [oauth2_session]
+2020/07/10 16:53:17 ...m/dialect_sqlite3.go:389:GetIndexes() [I] [SQL] SELECT sql FROM sqlite_master WHERE type='index' and tbl_name = ? [oauth2_session]
+2020/07/10 16:53:17 ...xorm/session_find.go:199:noCacheFind() [I] [SQL] SELECT `id`, `type`, `name`, `is_actived`, `is_sync_enabled`, `cfg`, `created_unix`, `updated_unix` FROM `login_source` WHERE (is_actived = ? and type = ?) []interface {}{true, 6}
+2020/07/10 16:53:17 .../xorm/session_raw.go:143:queryBytes() [I] [SQL] SELECT repo.id FROM `repository` repo WHERE repo.num_watches!=(SELECT COUNT(*) FROM `watch` WHERE repo_id=repo.id)
+2020/07/10 16:53:17 .../xorm/session_raw.go:143:queryBytes() [I] [SQL] SELECT repo.id FROM `repository` repo WHERE repo.num_stars!=(SELECT COUNT(*) FROM `star` WHERE repo_id=repo.id)
+2020/07/10 16:53:17 .../xorm/session_raw.go:143:queryBytes() [I] [SQL] SELECT label.id FROM `label` WHERE label.num_issues!=(SELECT COUNT(*) FROM `issue_label` WHERE label_id=label.id)
+2020/07/10 16:53:17 .../xorm/session_raw.go:143:queryBytes() [I] [SQL] SELECT `user`.id FROM `user` WHERE `user`.num_repos!=(SELECT COUNT(*) FROM `repository` WHERE owner_id=`user`.id)
+2020/07/10 16:53:17 .../xorm/session_raw.go:143:queryBytes() [I] [SQL] SELECT `issue`.id FROM `issue` WHERE `issue`.num_comments!=(SELECT COUNT(*) FROM `comment` WHERE issue_id=`issue`.id AND type=0)
+2020/07/10 16:53:17 .../xorm/session_raw.go:143:queryBytes() [I] [SQL] SELECT repo.id FROM `repository` repo WHERE repo.num_closed_issues!=(SELECT COUNT(*) FROM `issue` WHERE repo_id=repo.id AND is_closed=? AND is_pull=?) []interface {}{true, false}
+2020/07/10 16:53:17 .../xorm/session_raw.go:143:queryBytes() [I] [SQL] SELECT repo.id FROM `repository` repo WHERE repo.num_closed_pulls!=(SELECT COUNT(*) FROM `issue` WHERE repo_id=repo.id AND is_closed=? AND is_pull=?) []interface {}{true, true}
+2020/07/10 16:53:17 .../xorm/session_raw.go:143:queryBytes() [I] [SQL] SELECT repo.id FROM `repository` repo WHERE repo.num_forks!=(SELECT COUNT(*) FROM `repository` WHERE fork_id=repo.id)
+2020/07/10 16:53:17 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `owner_id`, `lower_name`, `name`, `description`, `website`, `default_branch`, `num_watches`, `num_stars`, `num_forks`, `num_issues`, `num_closed_issues`, `num_pulls`, `num_closed_pulls`, `num_milestones`, `num_closed_milestones`, `is_private`, `is_empty`, `is_archived`, `is_mirror`, `is_fork`, `fork_id`, `size`, `is_fsck_enabled`, `close_issues_via_commit_in_any_branch`, `topics`, `avatar`, `created_unix`, `updated_unix` FROM `repository` WHERE (id > 0)
+2020/07/10 16:53:18 ...rm/session_delete.go:211:Delete() [I] [SQL] DELETE FROM `deleted_branch` WHERE (deleted_unix < ?) []interface {}{1594313597}
+2020/07/10 16:53:18 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{26}
+2020/07/10 16:53:18 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{1}
+2020/07/10 16:53:18 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{2}
+2020/07/10 16:53:18 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{6}
+2020/07/10 16:53:18 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{17}
+2020/07/10 16:53:18 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{23}
+2020/07/10 16:53:18 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{21}
+2020/07/10 16:53:18 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{7}
+2020/07/10 16:53:18 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{22}
+2020/07/10 16:53:18 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{15}
+2020/07/10 16:53:19 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{12}
+2020/07/10 16:53:19 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{10}
+2020/07/10 16:53:19 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{18}
+2020/07/10 16:53:19 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{9}
+2020/07/10 16:53:19 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{31}
+2020/07/10 16:53:19 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{12}
+2020/07/10 16:53:19 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{13}
+2020/07/10 16:53:19 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{19}
+2020/07/10 16:53:19 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{15}
+2020/07/10 16:53:19 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{14}
+2020/07/10 16:53:19 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{24}
+2020/07/10 16:53:19 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{14}
+2020/07/10 16:53:19 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{20}
+2020/07/10 16:53:19 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{16}
+2020/07/10 16:53:19 .../xorm/session_get.go:99:nocacheGet() [I] [SQL] SELECT `name` FROM `user` WHERE `id`=? LIMIT 1 []interface {}{1}
+2020/07/10 16:53:22 routers/init.go:106:GlobalInit() [I] SQLite3 Supported
+2020/07/10 16:53:22 routers/init.go:37:checkRunMode() [I] Run Mode: Production
+2020/07/10 16:53:22 ...xorm/session_find.go:199:noCacheFind() [I] [SQL] SELECT `id`, `repo_id`, `hook_id`, `uuid`, `type`, `url`, `signature`, `payload_content`, `http_method`, `content_type`, `event_type`, `is_ssl`, `is_delivered`, `delivered`, `is_succeed`, `request_content`, `response_content` FROM `hook_task` WHERE (is_delivered=?) []interface {}{false}
+2020/07/10 16:53:22 ...xorm/session_find.go:199:noCacheFind() [I] [SQL] SELECT `id`, `type`, `status`, `conflicted_files`, `issue_id`, `index`, `head_repo_id`, `base_repo_id`, `head_user_name`, `head_branch`, `base_branch`, `merge_base`, `has_merged`, `merged_commit_id`, `merger_id`, `merged_unix` FROM `pull_request` WHERE (status = ?) []interface {}{1}
+2020/07/10 16:53:24 cmd/web.go:151:runWeb() [I] Listen: http://0.0.0.0:3000/gitea
+2020/07/10 16:53:24 cmd/web.go:154:runWeb() [I] LFS server enabled
+2020/07/10 16:53:24 ...ce/gracehttp/http.go:142:Serve() [I] Serving [::]:3000 with pid 1347
+2020/07/10 17:09:11 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594400951}
+2020/07/10 17:19:11 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594401551}
+2020/07/10 17:29:11 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594402151}
+2020/07/10 17:39:11 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594402751}
+2020/07/10 17:49:11 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594403351}
+2020/07/10 17:59:11 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594403951}
+2020/07/10 18:09:11 ...go-xorm/xorm/rows.go:50:newRows() [I] [SQL] SELECT `id`, `repo_id`, `interval`, `enable_prune`, `updated_unix`, `next_update_unix` FROM `mirror` WHERE (next_update_unix<=?) AND (next_update_unix!=0) []interface {}{1594404551}
