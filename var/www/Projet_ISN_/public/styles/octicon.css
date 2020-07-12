@@ -1,0 +1,14 @@
+@font-face {
+	font-family: Octicons;
+	src: url(/styles/octicons.woff2) format("woff2");
+	font-weight: 400;
+	font-style: normal;
+}
+
+.octicon{
+	font: normal normal normal 16px/1 Octicons;
+}
+
+.octicon-clippy:before {
+	content: "\f035";
+}
