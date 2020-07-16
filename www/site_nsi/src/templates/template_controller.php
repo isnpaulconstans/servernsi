@@ -7,6 +7,17 @@
  * PHP version 7
  */
 
+/*
+header("Strict-Transport-Security: max-age=63072000");
+header("Content-Security-Policy: " .
+       "default-src https:; img-src 'self'; script-src 'self';" .
+       "style-src 'self'; object-src 'none';" .
+       "frame-ancestors 'none'; X-Frame-Options DENY;" .
+       "base-uri 'self'; form-action 'self'");
+header("X-Content-Type-Options: nosniff");
+ */ 
+
+
 if (!isset($page_title)) {
     $page_title = null;
 }

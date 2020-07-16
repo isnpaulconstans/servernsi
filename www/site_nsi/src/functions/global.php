@@ -7,7 +7,15 @@
  * PHP version 7
  */
 
+ini_set('session.use_strict_mode', 1);
+ini_set('session.cookie_secure', 1);
+ini_set('session.cookie_httponly', 1);
+ini_set('session.cookie_samesite', 'Strict');
+ini_set('session.name', '__Secure-NSISESSIONID');
+
+
 require_once CLASSES_PATH . 'User.php';
+
 
 /**
  * Vérifie si l'utilisateur actuel est connecté.
@@ -16,8 +24,8 @@ require_once CLASSES_PATH . 'User.php';
  */
 function is_connected(): bool
 {
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
+	if (session_status() === PHP_SESSION_NONE) {
+		session_start();
     }
     return !empty($_SESSION['connected']);
 }

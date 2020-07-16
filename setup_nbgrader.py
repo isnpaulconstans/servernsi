@@ -279,7 +279,7 @@ def add_course(args):
     print(f"setting up service with token {admin_token} on port {port} for course {course}")
     print("---------------------------------------------------------")
     add_system_user(grader_account, randomString())
-
+    add_jupyter_user(grader_account)
     # need admin rights to add system users
     add_jupyter_admin(grader_account)
     add_jupyter_group(f"formgrade-{course}")
@@ -314,7 +314,7 @@ def add_teacher(args):
     password = args.password
     course = args.course_name
     check_course_exists(course)
-    print(f"- Adding teacher {teacher} to course : {couse}")
+    print(f"- Adding teacher {teacher} to course : {course}")
     print('------------------------------------')
     add_system_user(teacher, password)
     add_jupyter_user(teacher)
@@ -414,7 +414,7 @@ def install_all(args):
     
 
 def import_students_stub(args):
-    print(f'Importing students to course {args.course} from file : {args.file)}')
+    print(f'Importing students to course {args.course} from file : {args.file}')
 
 def install_stub(args):
     print(f'Installing jupyterhub and nbgrader with service : {args.systemd}')

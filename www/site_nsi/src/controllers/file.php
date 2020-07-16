@@ -69,7 +69,6 @@ switch ($type) {
         $zip_file = $dir . $homework->title . '.zip';
         $zip = new ZipArchive();
 
-	print("ici");
         if ($zip->open($zip_file,
             ZipArchive::CREATE | ZipArchive::OVERWRITE) != true
         ) {

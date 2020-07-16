@@ -60,7 +60,7 @@
 <h2>Ajouter des élèves à partir d'un fichier CSV</h2>
 <form method="post" enctype="multipart/form-data">
     <div>
-        <label for="file">Choisir un fichier : </label>
+        <label for="file">Choisir un fichier de la forme <b>Nom,Prénom,Classe[,Mot de passe]</b> :</label>
         <input type="file" id="file" name="csv_file" accept=".csv,text/csv" required>
     </div>
     <div>

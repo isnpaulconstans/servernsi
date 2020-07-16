@@ -30,6 +30,7 @@ class Database
         string $password = CONFIG['database']['password']
     )
     {
-        $this->pdo = new PDO($dsn, $user, $password);
+	    $this->pdo = new PDO($dsn, $user, $password);
+	    $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // ERRMODE_WARNING | ERRMODE_EXCEPTION | ERRMODE_SILENT
     }
 }

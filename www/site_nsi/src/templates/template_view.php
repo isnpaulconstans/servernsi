@@ -4,9 +4,9 @@
     <head>
         <meta charset="UTF-8">
         <link href="/styles/<?= $theme ?>.css" rel="stylesheet" type="text/css">
-        <?php if ($page_title === 'Édition d\'utilisateur' || $page_title === 'Administration'): ?>
+<?php if ($page_title === 'Édition d\'utilisateur' || $page_title === 'Administration'): ?>
         <link href="/styles/octicon.css" rel="stylesheet" type="text/css">
-        <?php endif ?>
+<?php endif ?>
         <title>NSI <?= $page_title ?></title>
         <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.png" />
     </head>

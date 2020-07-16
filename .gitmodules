@@ -1,3 +1,3 @@
 [submodule "var/www/Jirafeau"]
-	path = var/www/Jirafeau
+	path = www/Jirafeau
 	url = https://gitlab.com/mojo42/Jirafeau
