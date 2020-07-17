@@ -169,6 +169,7 @@ def call_api(method, path, datas=None):
                 },
         json=datas
     )
+    print("Résultat du call : ", r.text)
     r.raise_for_status()
     try:
         return r.json()
@@ -267,6 +268,10 @@ def add_jupyter_admin(name):
 def add_jupyter_group(group):
     """add a jupyter group"""
     return call_api('post', f'groups/{group}')
+ 
+def del_jupyter_group(group):
+    """delete a jupyter group"""
+    return call_api('delete', f'groups/{group}')
     
 def add_user_group(user, group):
     """add user to group"""
@@ -284,7 +289,7 @@ def check_course_exists(course):
             raise CourseDoesNotExist(course)
         # Whatever, we raise
         raise
-        
+         
 def add_course(args):
     course = args.course_name
     grader_account = "grader-{}".format(course)
@@ -327,6 +332,24 @@ def add_course(args):
         f.write(get_course_config(grader_account, course))
     os.system('systemctl restart jupyterhub')
 
+        
+def del_course(args):
+    course = args.course_name
+    check_course_exists(course)
+    print(f"Deleting course {course}")
+    print("------------------------------------")
+    grader_account = "grader-{}".format(course)
+    del_jupyter_user(grader_account)
+    del_jupyter_group(f"formgrade-{course}")
+    del_jupyter_group(f"nbgrader-{course}")
+
+    os.system(f"""sed -i -e "/c.JupyterHub.services.append({{'name': '{course}'/d" {jh_config_file}""") 
+    os.system('systemctl restart jupyterhub')
+    del_system_user(grader_account)
+
+
+   
+
 def add_teacher(args):
     teacher = args.teacher_name
     password = args.password
@@ -353,12 +376,12 @@ def add_student(args):
     add_user_group(student, f"nbgrader-{course}")
     toggle_nbgrader_component(student, 'assignment_list')
 
-def del_student(args):
-    student = args.student_name
-    print(f"- Deleting student {student}")
+def del_user(args):
+    user = args.user_name
+    print(f"- Deleting user {user}")
     print("------------------------------")
-    del_system_user(student)
-    del_jupyter_user(student)
+    del_system_user(user)
+    del_jupyter_user(user)
 
 def import_students(args):
     student_parser = args.student_parser
@@ -436,26 +459,8 @@ def install_all(args):
         f.write(jh_service)
     os.system('systemctl start jupyterhub')
     os.system('systemctl enable jupyterhub')
-    
 
-def import_students_stub(args):
-    print(f'Importing students to course {args.course} from file : {args.file}')
 
-def install_stub(args):
-    print(f'Installing jupyterhub and nbgrader with service : {args.systemd}')
-
-def add_course_stub(args):
-    print(f'Installing course : {args.course_name}')
-
-def add_teacher_stub(args):
-    print(f'Adding teacher {args.teacher_name} to course : {args.course_name}')
-
-def del_student_stub(args):
-    print(f'Deleting student {args.student_name}')
- 
-def add_student_stub(args):
-    print(f'Adding student {args.student_name} to course : {args.course_name}')
-    
 def main():
     parser = argparse.ArgumentParser()
 
@@ -495,15 +500,20 @@ def main():
     parser_add_student.set_defaults(func=add_student)
 
     # create the parser for the "del" command
-    parser_del = subparsers.add_parser('del', help='delete a course, a teacher or a student')
+    parser_del = subparsers.add_parser('del', help='delete a course or a user')
     subparsers_del = parser_del.add_subparsers(dest='element')
     subparsers_del.required = True
 
-    # DELETE STUDENT
-    parser_del_student = subparsers_del.add_parser('student', help='delete student from existing course')
-    parser_del_student.add_argument('student_name', help='the name of the student to delete')
-    parser_del_student.set_defaults(func=del_student)
+    # DELETE USER
+    parser_del_user = subparsers_del.add_parser('user', help='delete user')
+    parser_del_user.add_argument('user_name', help='the name of the user to delete')
+    parser_del_user.set_defaults(func=del_user)
 
+    # DELETE COURSE
+    parser_del_course = subparsers_del.add_parser('course', help='delete course')
+    parser_del_course.add_argument('course_name', help='the name of the course to delete')
+    parser_del_course.set_defaults(func=del_course)
+    
 
     # create the parser for the "import" command
     parser_import = subparsers.add_parser('import', help='import students to course from a csv file')
