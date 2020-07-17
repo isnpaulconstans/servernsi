@@ -3,6 +3,7 @@ import argparse
 import subprocess
 import requests
 from requests.exceptions import HTTPError
+from simplejson.errors import JSONDecodeError
 import os
 import stat
 import pwd
@@ -103,9 +104,9 @@ class CourseDoesNotExist(Exception):
 
     def __str__(self):
         if self.message:
-            return "Course {0} doesn't exists".format(self.message)
+            return "Course {0} does not exist".format(self.message)
         else:
-            return "Course doesn't exist"
+            return "Course does not exist"
 
 
 class MalformedCsvFile(Exception):
@@ -168,7 +169,11 @@ def call_api(method, path, datas=None):
                 },
         json=datas
     )
-    return r.json()
+    r.raise_for_status()
+    try:
+        return r.json()
+    except JSONDecodeError:
+        return r.text
     
 
 def get_service_repr(course, grader, port, token):
@@ -239,9 +244,22 @@ def add_system_user(user, password):
             proc.stdin.write('{}\n'.format(password))
             proc.stdin.write('{}\n'.format(password))
 
+def del_system_user(user):
+    os.system(f"userdel -r {user}")
+
 def add_jupyter_user(user):
     """add a jupyter user"""
     return call_api('post', f'users/{user}')
+
+def del_jupyter_user(user):
+    """delete a jupyter user"""
+    try:
+        print(call_api('delete', f'users/{user}'))
+    except HTTPError as e:
+        if e.response.status_code == 404:
+            print(f"jupyter user {user} does not exist")
+        else:
+            raise
 
 def add_jupyter_admin(name):
     return call_api('patch', f'users/{name}', datas={'admin':True})
@@ -335,6 +353,13 @@ def add_student(args):
     add_user_group(student, f"nbgrader-{course}")
     toggle_nbgrader_component(student, 'assignment_list')
 
+def del_student(args):
+    student = args.student_name
+    print(f"- Deleting student {student}")
+    print("------------------------------")
+    del_system_user(student)
+    del_jupyter_user(student)
+
 def import_students(args):
     student_parser = args.student_parser
     if not args.file:
@@ -425,6 +450,9 @@ def add_course_stub(args):
 def add_teacher_stub(args):
     print(f'Adding teacher {args.teacher_name} to course : {args.course_name}')
 
+def del_student_stub(args):
+    print(f'Deleting student {args.student_name}')
+ 
 def add_student_stub(args):
     print(f'Adding student {args.student_name} to course : {args.course_name}')
     
@@ -465,6 +493,17 @@ def main():
     parser_add_student.add_argument('--lms-user-id', help='the lms_id of the student')
     parser_add_student.add_argument('--password', help='required if teacher is created')
     parser_add_student.set_defaults(func=add_student)
+
+    # create the parser for the "del" command
+    parser_del = subparsers.add_parser('del', help='delete a course, a teacher or a student')
+    subparsers_del = parser_del.add_subparsers(dest='element')
+    subparsers_del.required = True
+
+    # DELETE STUDENT
+    parser_del_student = subparsers_del.add_parser('student', help='delete student from existing course')
+    parser_del_student.add_argument('student_name', help='the name of the student to delete')
+    parser_del_student.set_defaults(func=del_student)
+
 
     # create the parser for the "import" command
     parser_import = subparsers.add_parser('import', help='import students to course from a csv file')
