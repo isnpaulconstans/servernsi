@@ -52,6 +52,7 @@ function csv_to_user(string $file, string $delimiter = ','): ?array
  * Les informations renvoyées sont les suivantes :
  *  - Nom
  *  - Prénom
+ *  - Identifiant
  *  - Classe
  *  - Mot de passe
  *
@@ -70,7 +71,8 @@ function user_to_csv(string $file, array $users, string $delimiter = ','
             if (!fputcsv($csv_file, [
                 $user->last_name,
                 $user->first_name,
-                $user->username,
+		$user->username,
+		$user->class,
                 $user->password
                 ], $delimiter)
             ) {

@@ -1,3 +1,4 @@
+#! /usr/bin/php
 <?php
 define('WEB_ROOT', dirname(__DIR__) . DIRECTORY_SEPARATOR);
 
