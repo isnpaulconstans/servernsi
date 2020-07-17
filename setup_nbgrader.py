@@ -336,28 +336,28 @@ def add_student(args):
     toggle_nbgrader_component(student, 'assignment_list')
 
 def import_students(args):
-    course = args.course
-    check_course_exists(course)
     student_parser = args.student_parser
-    print("- Importing students from file {} to course {}".format(args.file, course))
+    if not args.file:
+        args.file = 'www/site_nsi/data/admin/students.csv'
+    print("- Importing students from file {}".format(args.file))
     print("---------------------------------------------")
     with open(args.file) as f:
-        first_line = f.readline()
-        header_data = [d.rstrip() for d in re.split(',|;', first_line)]
-        headers = ['id','first_name','last_name','email','lms_user_id','password']
-        if header_data != headers:
-            raise MalformedCsvFile(header_data)
         data_line = f.readline()
         while data_line: # TODO empty or malformed lines
             datas = [d.rstrip() for d in re.split(',|;', data_line)]
+            course = datas[3]
+            try:
+                check_course_exists(course)
+            except CourseDoesNotExist:
+                add_course(args.course_parser.parse_args([course]))
             ns = student_parser.parse_args([
-                datas[0], # id
+                datas[2], # id
                 course,
+                "--last-name={}".format(datas[0]),
                 "--first-name={}".format(datas[1]),
-                "--last-name={}".format(datas[2]),
-                "--email={}".format(datas[3]),
-                "--lms-user-id={}".format(datas[4]),
-                "--password={}".format(datas[5]),
+#                "--email={}".format(datas[3]),
+#                "--lms-user-id={}".format(datas[4]),
+                "--password={}".format(datas[4]),
                 ])
             add_student(ns)
             data_line = f.readline()
@@ -467,9 +467,9 @@ def main():
     parser_add_student.set_defaults(func=add_student)
 
     # create the parser for the "import" command
-    parser_import = subparsers.add_parser('import', help='import students to course from a file')
-    parser_import.add_argument('file', help='file to import')
-    parser_import.add_argument('course', help='course to add student to')
+    parser_import = subparsers.add_parser('import', help='import students to course from a csv file')
+    parser_import.add_argument('--file', help='file to import (last name, first name, student name, course name, password). default www/site_nsi/data/admin/students.csv')
+#    parser_import.add_argument('course', help='course to add student to')
     parser_import.set_defaults(func=import_students, student_parser=parser_add_student)
 
     s = parser.parse_args()
