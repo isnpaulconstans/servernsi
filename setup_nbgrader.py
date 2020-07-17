@@ -361,10 +361,15 @@ def del_course(args):
     grader_account = "grader-{}".format(course)
     del_jupyter_user(grader_account)
     del_jupyter_group(f"formgrade-{course}")
+    students = call_api('get', f'groups/nbgrader-{course}')['users']
+    for student in students:
+        del_jupyter_users(student)
     del_jupyter_group(f"nbgrader-{course}")
 
     os.system(f"""sed -i -e "/c.JupyterHub.services.append({{'name': '{course}'/d" {jh_config_file}""") 
     os.system('systemctl restart jupyterhub')
+    for student in students:
+        del_system_user(student)
     del_system_user(grader_account)
 
 
