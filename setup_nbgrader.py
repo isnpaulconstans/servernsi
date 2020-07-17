@@ -168,12 +168,11 @@ def call_api(method, path, datas=None):
                 },
         json=datas
     )
-    print("Résultat du call : ", r.text)
     r.raise_for_status()
     try:
         return r.json()
     except JSONDecodeError:
-        return r.text
+        pass
     
 
 def get_service_repr(course, grader, port, token):
@@ -247,16 +246,23 @@ def add_system_user(user, password):
             proc.stdin.write('{}\n'.format(password))
 
 def del_system_user(user):
+    print(f"Deleting {user} from system")
     os.system(f"userdel -r {user}")
 
 def add_jupyter_user(user):
-    """add a jupyter user"""
-    return call_api('post', f'users/{user}')
+    print(f"add {user} as jupyter user")
+    try:
+        call_api('post', f'users/{user}')
+    except HTTPError as e:
+        if e.response.status_code == 409:
+            print(f"jupyter user {user} allready exists")
+        else:
+            raise
 
 def del_jupyter_user(user):
-    """delete a jupyter user"""
+    print(f"delete jupyter user {user}")
     try:
-        print(call_api('delete', f'users/{user}'))
+        call_api('delete', f'users/{user}')
     except HTTPError as e:
         if e.response.status_code == 404:
             print(f"jupyter user {user} does not exist")
@@ -264,19 +270,32 @@ def del_jupyter_user(user):
             raise
 
 def add_jupyter_admin(name):
-    return call_api('patch', f'users/{name}', datas={'admin':True})
+    print(f"set user {name} as admin")
+    call_api('patch', f'users/{name}', datas={'admin':True})
 
 def add_jupyter_group(group):
-    """add a jupyter group"""
-    return call_api('post', f'groups/{group}')
+    print(f"add jupyter group {group}")
+    try:
+        call_api('post', f'groups/{group}')
+    except HTTPError as e:
+        if e.response.status_code == 404:
+            print(f"jupyter group {group} allready exists")
+        else:
+            raise
  
 def del_jupyter_group(group):
-    """delete a jupyter group"""
-    return call_api('delete', f'groups/{group}')
+    print(f"delete jupyter group {group}")
+    try:
+        call_api('delete', f'groups/{group}')
+    except HTTPError as e:
+        if e.response.status_code == 404:
+            print(f"jupyter group {group} does not exist")
+        else:
+            raise
     
 def add_user_group(user, group):
-    """add user to group"""
-    return call_api('post', f"groups/{group}/users", datas={'users':[user]})
+    print(f"add user {user} to group {group}")
+    call_api('post', f"groups/{group}/users", datas={'users':[user]})
 
 ### For course management
 #########################
@@ -348,8 +367,6 @@ def del_course(args):
     os.system('systemctl restart jupyterhub')
     del_system_user(grader_account)
 
-
-   
 
 def add_teacher(args):
     teacher = args.teacher_name
