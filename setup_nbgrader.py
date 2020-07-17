@@ -53,7 +53,6 @@ c.Authenticator.admin_users = set()
 c.JupyterHub.load_groups = dict()
 c.JupyterHub.services = []
 c.Authenticator.admin_users.add('{JUPYTER_ADMIN}')
-next_port=9999
 ### End of basic config
 ########################
 """
@@ -198,18 +197,20 @@ def get_course_config(grader, course):
 
 
 def get_next_port():
-    lines = []
-    with open(jh_config_file,'r') as cfg:
-        for i in cfg:
-            if 'next_port' in i:
-                [left, port] = i.split(sep='=')
-                next_port = int(port) - 1
-                lines.append('{}={}\n'.format(left,next_port))
-            else:
-                lines.append(i)
-    with open(jh_config_file,'w') as cfg:
-        cfg.writelines(lines)
-    return int(port)
+    used_ports = set()
+    with open(jh_config_file, 'r') as cfg:
+        for line in cfg:
+            if not 'c.JupyterHub.services.append' in line:
+                continue
+            d = line[line.index('(')+1:line.index(')')]
+            assert d[0] == '{' and d[-1] == '}', f"Problème dans le fichier {jh_config_file}, ligne :\n    {line}\n    {d}"
+            d = eval(d)
+            port = int(d['url'].split(':')[2])
+            used_ports.add(port)
+    port = 9999
+    while port in used_ports:
+        port -= 1
+    return port
 
 
 def toggle_nbgrader_component(user, component, enable=True):
