@@ -46,3 +46,5 @@ sed -i -e "s/#NAME_REGEX=.*/NAME_REGEX=\"^[a-z][-a-z0-9_.]*[a-z0-9_]$\"/" "/etc/
 ./setup_nbgrader.py add teacher delay.e tnsi --password 'manu!42'
 # TODO ajouter les élèves 
 
+## addresse IP : voir https://www.linuxtechi.com/assign-static-ip-address-ubuntu-20-04-lts/
+

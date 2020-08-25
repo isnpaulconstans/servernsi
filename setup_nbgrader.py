@@ -233,21 +233,24 @@ def toggle_nbgrader_component(user, component, enable=True):
                         '--user',"nbgrader.server_extensions.{}".format(component)],
                         env={'HOME':home,'USER':user})
 
-def add_system_user(user, password):
+def add_system_user(user, password, grader=False):
     """add user to system if necessary"""
     try:
         pwd.getpwnam(user)
     except KeyError:
         if not password:
             raise MissingParameter('--password')
-        os.system(f"""adduser --disabled-password --gecos "" {user}""")
+        opt = "--ingroup grader" if grader else "" 
+        os.system(f"""adduser --disabled-password --gecos "" {opt} {user}""")
         with subprocess.Popen(['passwd',user], stdin=subprocess.PIPE, encoding='utf-8') as proc:
             proc.stdin.write('{}\n'.format(password))
             proc.stdin.write('{}\n'.format(password))
+    else:
+        print(f"system user {user} allready exists")
 
 def del_system_user(user):
     print(f"Deleting {user} from system")
-    os.system(f"userdel -r {user}")
+    os.system(f"deluser --remove-home {user}")
 
 def add_jupyter_user(user):
     print(f"add {user} as jupyter user")
@@ -321,7 +324,7 @@ def add_course(args):
     port = get_next_port()
     print(f"setting up service with token {admin_token} on port {port} for course {course}")
     print("---------------------------------------------------------")
-    add_system_user(grader_account, randomString())
+    add_system_user(grader_account, randomString(), grader=True)
     add_jupyter_user(grader_account)
     # need admin rights to add system users
     add_jupyter_admin(grader_account)
@@ -380,7 +383,7 @@ def add_teacher(args):
     check_course_exists(course)
     print(f"- Adding teacher {teacher} to course : {course}")
     print('------------------------------------')
-    add_system_user(teacher, password)
+    add_system_user(teacher, password, grader=True)
     add_jupyter_user(teacher)
     add_user_group(teacher, f"formgrade-{course}")
     add_jupyter_admin(teacher)
@@ -403,8 +406,8 @@ def del_user(args):
     user = args.user_name
     print(f"- Deleting user {user}")
     print("------------------------------")
-    del_system_user(user)
     del_jupyter_user(user)
+    del_system_user(user)
 
 def import_students(args):
     student_parser = args.student_parser
