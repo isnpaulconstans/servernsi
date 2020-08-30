@@ -1,0 +1,6 @@
+Ajouter un nom sur https://www.changeip.com/ du genre svr.paulconstans.ddns.info
+Ajouter un utilisateur, et lier le contenu à son home
+Autoriser l'acces dans /etc/ssh/sshd_config et relancer systemctl restart sshd.service
+Configurer nginx (voir le modèle /etc/nginx/sites-available/ess.conf)
+
+
