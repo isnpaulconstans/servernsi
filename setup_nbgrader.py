@@ -23,6 +23,7 @@ deps = [
 'pip3 install -U jupyter',
 'pip3 install -U jupyterhub',
 'pip3 install nbgrader',
+'pip3 install metakernel',  # Pour avoir pythontutor avec %%tutor
 ]
 
 srv_root="/srv/nbgrader"
@@ -77,6 +78,15 @@ WantedBy=multi-user.target
 course_config_base="""c = get_config()
 c.CourseDirectory.root = '/home/{grader}/{course}'
 c.CourseDirectory.course_id = '{course}'
+"""
+
+# configuration des notebook
+ipython_config="""c = get_config()
+startup = [
+   'from metakernel import register_ipython_magics',
+   'register_ipython_magics()',
+]
+c.InteractiveShellApp.exec_lines = startup
 """
 
 
@@ -480,6 +490,10 @@ def install_all(args):
     os.makedirs('/etc/jupyter/', exist_ok=True)
     with open('/etc/jupyter/nbgrader_config.py', "w") as f:
         f.write(nbgrader_global_config)
+    
+    os.makedirs("/etc/ipython/", exists_ok=True)
+    with open("/etc/ipython/ipython_config.py", "w") as f
+        f.write(ipython_config)
 
     with open("/etc/systemd/system/jupyterhub.service","w") as f:
         f.write(jh_service)
