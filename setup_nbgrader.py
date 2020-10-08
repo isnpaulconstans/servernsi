@@ -169,7 +169,7 @@ def call_api(method, path, datas=None):
         func=dispatcher[method]
     except KeyError:
         raise ValueError('invalid method')
-    
+
     api_url = 'http://127.0.0.1:8081/jupyter/hub/api'
     token = get_token_for_user(JUPYTER_ADMIN)
     r = func(os.path.join(api_url,path),
@@ -183,7 +183,7 @@ def call_api(method, path, datas=None):
         return r.json()
     except JSONDecodeError:
         pass
-    
+
 
 def get_service_repr(course, grader, port, token):
     service = {
@@ -197,7 +197,7 @@ def get_service_repr(course, grader, port, token):
           'user': grader,
           'cwd': '/home/{}'.format(grader),
           'api_token': '{}'.format(token),
-    }  
+    }
     return repr(service)
 
 
@@ -235,8 +235,8 @@ def toggle_nbgrader_component(user, component, enable=True):
                 'jupyter','nbextension', action,
                 '--user',"{}/main".format(component)]
     if component != 'create_assignment':
-        command.append('--section=tree')  
-    subprocess.run(command, env={'HOME':home,'USER':user})  
+        command.append('--section=tree')
+    subprocess.run(command, env={'HOME':home,'USER':user})
     if component != 'create_assignment':
         subprocess.run(['sudo','-u',user,
                         'jupyter','serverextension',action,
@@ -250,7 +250,7 @@ def add_system_user(user, password, grader=False):
     except KeyError:
         if not password:
             raise MissingParameter('--password')
-        opt = "--ingroup grader" if grader else "" 
+        opt = "--ingroup grader" if grader else ""
         os.system(f"""adduser --disabled-password --gecos "" {opt} {user}""")
         with subprocess.Popen(['passwd',user], stdin=subprocess.PIPE, encoding='utf-8') as proc:
             proc.stdin.write('{}\n'.format(password))
@@ -271,6 +271,29 @@ def add_jupyter_user(user):
             print(f"jupyter user {user} allready exists")
         else:
             raise
+
+def add_nbgrader_user(user, first_name, last_name, course):
+    print(f"add {user} ({last_name}, {first_name}) to course {course}")
+    course_dir = f"/home/grader-{course}/{course}"
+#    curdir = os.getcwd()
+#    os.chdir(course_dir)
+    os.system(f"""nbgrader db student add {user} """
+              f"""--last-name="{last_name}" """
+              f"""--first-name="{first_name}" """
+              f"""--course-dir={course_dir} """
+#              f"""--CourseDirectory.course_id={course} """
+              )
+#    os.chdir(curdir)
+
+def del_nbgrader_user(user, course):
+    print(f"del {user} from course {course}")
+    course_dir = f"/home/grader-{course}/{course}"
+    for subdir in ("autograded", "feedback", "submitted"):
+        os.system(f"rm -rf {course_dir}/{subdir}/{user}")
+    os.system(f"""nbgrader db student remove {user} """
+              f"""--course-dir={course_dir} """
+              f"""--force """
+              )
 
 def del_jupyter_user(user):
     print(f"delete jupyter user {user}")
@@ -295,7 +318,7 @@ def add_jupyter_group(group):
             print(f"jupyter group {group} allready exists")
         else:
             raise
- 
+
 def del_jupyter_group(group):
     print(f"delete jupyter group {group}")
     try:
@@ -305,7 +328,7 @@ def del_jupyter_group(group):
             print(f"jupyter group {group} does not exist")
         else:
             raise
-    
+
 def add_user_group(user, group):
     print(f"add user {user} to group {group}")
     call_api('post', f"groups/{group}/users", datas={'users':[user]})
@@ -322,7 +345,7 @@ def check_course_exists(course):
             raise CourseDoesNotExist(course)
         # Whatever, we raise
         raise
-         
+
 def add_course(args):
     course = args.course_name
     grader_account = "grader-{}".format(course)
@@ -342,10 +365,10 @@ def add_course(args):
     add_user_group(grader_account, f"formgrade-{course}")
     # empty students group
     add_jupyter_group(f"nbgrader-{course}")
-    
+
     toggle_nbgrader_component(grader_account, 'formgrader')
     toggle_nbgrader_component(grader_account, 'create_assignment')
-    
+
     with open(jh_config_file,'a') as f:
         # Append service
         service_string = get_service_repr(course,grader_account,port,admin_token)
@@ -365,7 +388,7 @@ def add_course(args):
         f.write(get_course_config(grader_account, course))
     os.system('systemctl restart jupyterhub')
 
-        
+
 def del_course(args):
     course = args.course_name
     check_course_exists(course)
@@ -376,10 +399,10 @@ def del_course(args):
     del_jupyter_group(f"formgrade-{course}")
     students = call_api('get', f'groups/nbgrader-{course}')['users']
     for student in students:
-        del_jupyter_users(student)
+        del_jupyter_user(student)
     del_jupyter_group(f"nbgrader-{course}")
 
-    os.system(f"""sed -i -e "/c.JupyterHub.services.append({{'name': '{course}'/d" {jh_config_file}""") 
+    os.system(f"""sed -i -e "/c.JupyterHub.services.append({{'name': '{course}'/d" {jh_config_file}""")
     os.system('systemctl restart jupyterhub')
     for student in students:
         del_system_user(student)
@@ -402,6 +425,8 @@ def add_teacher(args):
 
 def add_student(args):
     student = args.student_name
+    first_name = args.first_name
+    last_name = args.last_name
     password = args.password
     course = args.course_name
     check_course_exists(course)
@@ -411,12 +436,16 @@ def add_student(args):
     add_jupyter_user(student)
     add_user_group(student, f"nbgrader-{course}")
     toggle_nbgrader_component(student, 'assignment_list')
+    add_nbgrader_user(student, first_name, last_name, course)
 
 def del_user(args):
     user = args.user_name
+    course = args.course_name
     print(f"- Deleting user {user}")
     print("------------------------------")
     del_jupyter_user(user)
+    if course:
+        del_nbgrader_user(user, course)
     del_system_user(user)
 
 def import_students(args):
@@ -437,8 +466,8 @@ def import_students(args):
             ns = student_parser.parse_args([
                 datas[2], # id
                 course,
-                "--last-name={}".format(datas[0]),
-                "--first-name={}".format(datas[1]),
+                "--last_name={}".format(datas[0]),
+                "--first_name={}".format(datas[1]),
 #                "--email={}".format(datas[3]),
 #                "--lms-user-id={}".format(datas[4]),
                 "--password={}".format(datas[4]),
@@ -473,7 +502,7 @@ def install_all(args):
     #os.system('git checkout create-users-on-demand')
     #os.system('pip3 install -U -r requirements.txt -e .')
     os.chdir(curdir)
-    
+
     os.system('jupyter nbextension install --symlink --sys-prefix --py nbgrader --overwrite')
 
     os.system('jupyter nbextension disable --sys-prefix --py nbgrader')
@@ -490,9 +519,9 @@ def install_all(args):
     os.makedirs('/etc/jupyter/', exist_ok=True)
     with open('/etc/jupyter/nbgrader_config.py', "w") as f:
         f.write(nbgrader_global_config)
-    
+
     os.makedirs("/etc/ipython/", exists_ok=True)
-    with open("/etc/ipython/ipython_config.py", "w") as f
+    with open("/etc/ipython/ipython_config.py", "w") as f:
         f.write(ipython_config)
 
     with open("/etc/systemd/system/jupyterhub.service","w") as f:
@@ -532,10 +561,10 @@ def main():
     parser_add_student = subparsers_add.add_parser('student', help='add student to existing course')
     parser_add_student.add_argument('student_name', help='the name of the student to add')
     parser_add_student.add_argument('course_name', help='the name of the course')
-    parser_add_student.add_argument('--first-name', help='the first name of the student to add')
-    parser_add_student.add_argument('--last-name', help='the last name of the student to add')
+    parser_add_student.add_argument('--first_name', help='the first name of the student to add')
+    parser_add_student.add_argument('--last_name', help='the last name of the student to add')
     parser_add_student.add_argument('--email', help='the student\'s email')
-    parser_add_student.add_argument('--lms-user-id', help='the lms_id of the student')
+    parser_add_student.add_argument('--lms_user_id', help='the lms_id of the student')
     parser_add_student.add_argument('--password', help='required if teacher is created')
     parser_add_student.set_defaults(func=add_student)
 
@@ -547,13 +576,14 @@ def main():
     # DELETE USER
     parser_del_user = subparsers_del.add_parser('user', help='delete user')
     parser_del_user.add_argument('user_name', help='the name of the user to delete')
+    parser_del_user.add_argument('--course_name', help='the name of the course')
     parser_del_user.set_defaults(func=del_user)
 
     # DELETE COURSE
     parser_del_course = subparsers_del.add_parser('course', help='delete course')
     parser_del_course.add_argument('course_name', help='the name of the course to delete')
     parser_del_course.set_defaults(func=del_course)
-    
+
 
     # create the parser for the "import" command
     parser_import = subparsers.add_parser('import', help='import students to course from a csv file')
