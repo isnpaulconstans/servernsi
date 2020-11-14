@@ -15,11 +15,18 @@ function ressource_add(RessourceDatabase $ressource_db, string $ressource_type,
     }
 
     $file_info = pathinfo($file['name']);
-    // Le fichier est un PDF.
-    if ($file_info['extension'] != 'pdf' || $file['type'] != 'application/pdf'
+    // Le fichier est d'un type autorisé.
+    if (!in_array($file_info['extension'], CONFIG['production']['extension']) ||
+        !in_array($file['type'], CONFIG['production']['mime_type'])
+    ) {
+        $error = 'Le format du fichier est incorrect.';
+        return;
+    }
+ /*   if ($file_info['extension'] != 'pdf' || $file['type'] != 'application/pdf'
     ) {
         return 'Le fichier envoyé n\'est pas au format PDF';
     }
+*/
 
     $ressource = new Ressource($title, $file['name']);
     $new_file = DATA_PATH . $ressource_type . DIRECTORY_SEPARATOR .
