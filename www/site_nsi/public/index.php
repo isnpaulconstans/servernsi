@@ -70,13 +70,13 @@ switch ($uri[1]) {
         }
     case 'news':
         if ($uri_size === 2) {
-            $page_title = 'Actualités';
+            $page_title = 'actualités';
             require VIEWS_PATH . 'news.php';
             break;
         }
     case 'ressources':
         if ($uri_size === 2) {
-            $page_title = 'Ressources';
+            $page_title = 'ressources';
             require VIEWS_PATH . 'ressources.php';
             break;
         }
@@ -103,7 +103,7 @@ switch ($uri[1]) {
                     break;
                 }
                 if ($uri_size === 3) {
-                    $page_title = 'Devoirs Maison';
+                    $page_title = 'devoirs maison';
                     require CONTROLLERS_PATH . 'ressources' .
                         DIRECTORY_SEPARATOR . 'homeworks.php';
                     require VIEWS_PATH . 'ressources' .
@@ -120,7 +120,7 @@ switch ($uri[1]) {
                             echo ERROR401;
                             break;
                         }
-                        $page_title = 'Edition d\'un devoir maison';
+                        $page_title = 'édition d\'un devoir maison';
                         require CONTROLLERS_PATH . 'ressources' .
                             DIRECTORY_SEPARATOR . 'homeworks' .
                             DIRECTORY_SEPARATOR . 'edit.php';
@@ -133,7 +133,7 @@ switch ($uri[1]) {
                             echo ERROR401;
                             break;
                         }
-                        $page_title = 'Productions du devoir Maison';
+                        $page_title = 'productions du devoir maison';
                         require CONTROLLERS_PATH . 'ressources' .
                             DIRECTORY_SEPARATOR . 'homeworks' .
                             DIRECTORY_SEPARATOR . 'view.php';
@@ -146,7 +146,7 @@ switch ($uri[1]) {
                             echo ERROR401;
                             break;
                         }
-                        $page_title = 'Rendre un devoir Maison';
+                        $page_title = 'rendre un devoir maison';
                         require CONTROLLERS_PATH . 'ressources' .
                             DIRECTORY_SEPARATOR . 'homeworks' .
                             DIRECTORY_SEPARATOR . 'return.php';
@@ -163,7 +163,7 @@ switch ($uri[1]) {
                     echo ERROR401;
                     break;
                 }
-                $page_title = 'Edition d\'une ressource';
+                $page_title = 'édition d\'une ressource';
                 require CONTROLLERS_PATH . 'ressources' .
                     DIRECTORY_SEPARATOR . 'edit.php';
                 require VIEWS_PATH . 'ressources' .
@@ -175,7 +175,7 @@ switch ($uri[1]) {
         break;
     case 'services':
         if ($uri_size === 2) {
-            $page_title = 'Services';
+            $page_title = 'services';
             require VIEWS_PATH . 'services.php';
             break;
         }
@@ -184,13 +184,13 @@ switch ($uri[1]) {
             echo 'Vous êtes déjà connecté';
             break;
         }
-        $page_title = 'Connexion';
+        $page_title = 'connexion';
         require CONTROLLERS_PATH . 'login.php';
         require VIEWS_PATH . 'login.php';
         break;
     case 'contact':
         if ($uri_size === 2) {
-            $page_title = 'Contact';
+            $page_title = 'contact';
             require VIEWS_PATH . 'contact.php';
             break;
         }
@@ -212,21 +212,21 @@ switch ($uri[1]) {
                 }
             case 'profil':
                 if ($uri_size === 2) {
-                    $page_title = 'Profil';
+                    $page_title = 'profil';
                     require CONTROLLERS_PATH . 'profil.php';
                     require VIEWS_PATH . 'profil.php';
                     break;
                 }
             case 'communication':
                 if ($uri_size === 2) {
-                    $page_title = 'Communication';
+                    $page_title = 'communications';
                     require CONTROLLERS_PATH . 'communication.php';
                     require VIEWS_PATH . 'communication.php';
                     break;
                 }
             case 'edit_pass':
                 if ($uri_size === 2) {
-                    $page_title = 'Modifier le mot de passe';
+                    $page_title = 'modifier le mot de passe';
                     require CONTROLLERS_PATH . 'edit_pass.php';
                     require VIEWS_PATH . 'edit_pass.php';
                     break;
@@ -237,7 +237,7 @@ switch ($uri[1]) {
                     break;
                 }
                 if ($uri_size === 2) {
-                    $page_title = 'Administration';
+                    $page_title = 'administration';
                     require CONTROLLERS_PATH . 'admin.php';
                     require VIEWS_PATH . 'admin.php';
                     break;
@@ -248,7 +248,7 @@ switch ($uri[1]) {
                 }
                 switch ($uri[2]) {
                     case 'edit':
-                        $page_title = 'Édition d\'utilisateur';
+                        $page_title = 'édition d\'utilisateur';
                         require CONTROLLERS_PATH . 'admin' .
                             DIRECTORY_SEPARATOR . 'edit.php';
                         require VIEWS_PATH . 'admin' .
@@ -267,5 +267,3 @@ $page_content = ob_get_clean();
 
 require TEMPLATES_PATH . 'template_controller.php';
 require TEMPLATES_PATH . 'template_view.php';
-
-
