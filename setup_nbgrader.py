@@ -245,6 +245,7 @@ def toggle_nbgrader_component(user, component, enable=True):
 
 def add_system_user(user, password, grader=False):
     """add user to system if necessary"""
+    # TODO modifier /etc/adduser.conf pour mettre les utilisateurs par groupe et par lettre
     try:
         pwd.getpwnam(user)
     except KeyError:
