@@ -25,6 +25,7 @@
                          || $page_title === 'édition d\'un devoir maison'
                          || $page_title === 'productions du devoir maison'
                          || $page_title === 'rendre un devoir maison'
+                         || $page_title === 'édition d\'une ressource'
                          ): ?> class="active"<?php endif ?> href="/ressources">Ressources</a>
             <ul class="sous-menus">
               <li><a<?php if ($page_title === 'cours'): ?> class="active"<?php endif ?> href="/ressources/courses">Cours</a></li>
