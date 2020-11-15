@@ -37,9 +37,9 @@
 <form method="post" enctype="multipart/form-data">
     <label for="title">Titre :</label>
     <input id="title" type="text" name="title" required>
-    <input type="file" id="file" name="pdf_file" accept=".pdf,application/pdf" required>
+    <input type="file" id="file" name="pdf_file" accept="<?= str_accepted() ?>" required>
     <div>
-        <button>Ajouter le cours</button>
+        <button>Ajouter le fichier</button>
     </div>
 </form>
 <?php endif ?>

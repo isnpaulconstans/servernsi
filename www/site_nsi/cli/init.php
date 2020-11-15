@@ -64,6 +64,14 @@ try {
         );'
     );
     $pdo->exec(
+        'CREATE TABLE `ds` (
+        	`id`	INTEGER NOT NULL PRIMARY KEY UNIQUE,
+        	`title`	VARCHAR ( 255 ) NOT NULL,
+        	`file`	VARCHAR ( 255 ) NOT NULL,
+            `class` VARCHAR ( 255 ) NOT NULL
+        );'
+    );
+    $pdo->exec(
         'CREATE TABLE `homework` (
         	`id`	    INTEGER NOT NULL PRIMARY KEY UNIQUE,
         	`title`	    VARCHAR ( 255 ) NOT NULL,
@@ -86,6 +94,7 @@ $dirs = [
     'data/activity',
     'data/admin',
     'data/course',
+    'data/ds'
     'data/homework/production'
 ];
 foreach ($dirs as $dir) {

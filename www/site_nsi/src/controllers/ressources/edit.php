@@ -15,7 +15,7 @@ if (empty($_GET['t'] || empty($_GET['id']))) {
 $type = $_GET['t'];
 $id   = (int)$_GET['id'];
 
-$ressource_types = ['course', 'activity'];
+$ressource_types = ['course', 'activity', 'ds'];
 if ($id < 0 || !in_array($type, $ressource_types)) {
     $error = '\'' . htmlentities($type) .
         '\' n\'est pas un type de ressource valide.';
@@ -23,10 +23,19 @@ if ($id < 0 || !in_array($type, $ressource_types)) {
 }
 
 // Définit le contenu de l'URL après 'ressources/'
-if ($type === 'activity') {
-    $type_path = 'activities';
-} else {
-    $type_path = $type . 's';
+switch ($type) {
+    case 'activity':
+        $type_path = 'activities';
+        break;
+    case 'course':
+        $type_path = 'courses';
+        break;
+    case 'ds':
+        $type_path = 'ds';
+        break;
+    default:
+        $error = "Type de ressource non reconnu."
+        return;
 }
 
 // Créer et configure la connexion à la base de données.
@@ -55,7 +64,7 @@ if (!empty($_POST['id']) && !empty($_POST['title'])) {
         $ressource->title = $new_title;
         // Modifie la titre dans la base de données.
         if ($ressource_db->modify($ressource)) {
-            $success = 'Le titre du cours à été modifié.';
+            $success = 'Le titre a été modifié.';
         }
     }
 

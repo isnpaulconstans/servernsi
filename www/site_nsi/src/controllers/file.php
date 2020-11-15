@@ -11,6 +11,7 @@ $error = null;
 switch ($type) {
     case 'course':
     case 'activity':
+    case 'ds':
         $filename = DATA_PATH . $type . DIRECTORY_SEPARATOR . $file;
         break;
     case 'admin':

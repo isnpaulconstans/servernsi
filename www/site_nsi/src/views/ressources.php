@@ -25,18 +25,12 @@
 <div class="article_container">
     <div>
         <h2>
-            Devoirs Maisons
+            Devoirs surveillés
         </h2>
-        <?php if ($connected): ?>
         <p>
-            Faites et rendez vos devoirs.
+            Refaites les devoirs ou consultez les corrigés.
         </p>
-        <a class="button" href="/homeworks">Devoirs Maisons</a>
-        <?php else: ?>
-        <p>
-            Connectez-vous pour avoir accès aux devoirs maisons.
-        </p>
-        <?php endif ?>
+        <a class="button" href="/<?= $tab ?>/ds">Devoirs surveillés</a>
     </div>
     <img src="/images/dm.png">
 </div>

@@ -114,11 +114,42 @@ function del_dir($target) {
         $files = glob($target . '*', GLOB_MARK);
 
         foreach ($files as $file){
-            del_dir($file);      
+            del_dir($file);
         }
 
         rmdir( $target );
     } elseif (is_file($target)) {
-        unlink($target);  
+        unlink($target);
     }
+}
+
+/**
+ * Teste si le format du fichier est accepté, c'est à dire est dans
+ * config/config.ini
+ *
+ * @param array $file_info Les info sur le fichier
+ *
+ * @return bool true si le fichier est acccepté sinon false
+ */
+function is_accepted(array $file) {
+    $file_info = pathinfo($file['name']);
+    return in_array($file_info['extension'], CONFIG['production']['extension'])
+        && in_array($file['type'], CONFIG['production']['mime_type']);
+}
+
+/**
+ * Renvoie la liste des formats acceptés dans config/config.ini sous forme d'une
+ * chaîne de carctères.
+ *
+ * @return string les formats et extensions acceptés, séparés par des virgules
+ */
+function str_accepted() {
+    $accepted = '';
+    foreach (CONFIG['production']['extension'] as $extension) {
+    	$accepted .= '.' . $extension . ',';
+    }
+    foreach (CONFIG['production']['mime_type'] as $mime) {
+    	$accepted .= $mime . ',';
+    }
+    return $accepted;
 }

@@ -14,14 +14,7 @@
 <?php else: ?>
 <h2>Vous n'avez pas encore rendu ce devoir maison.</h2>
 <form method="post" enctype="multipart/form-data">
-<input type="file" id="file" name="file" accept="<?php
-foreach (CONFIG['production']['extension'] as $extension) {
-	echo '.' . $extension . ',';
-}
-foreach (CONFIG['production']['mime_type'] as $mime) {
-	echo $mime . ',';
-}
-?>" required>
+<input type="file" id="file" name="file" accept="<?= str_accepted() ?>" required>
     <div>
         <button>Rendre le devoir maison</button>
     </div>

@@ -30,12 +30,9 @@ function homework_add(HomeworkDatabase $homework_db, string $title,
         return 'Le fichier envoyé est trop volumineux';
     }
 
-    $file_info = pathinfo($file['name']);
-    // Le fichier est un PDF.
-    if ($file_info['extension'] != 'pdf' ||
-        $file['type'] != 'application/pdf'
-    ) {
-        return 'Le fichier envoyé n\'est pas au format PDF';
+    // Le fichier est d'un type autorisé.
+    if (!is_accepted($file)) {
+        return 'Le format du fichier est incorrect.';
     }
 
     $homework = new Homework($title, $file['name']);
@@ -67,13 +64,13 @@ function homework_add(HomeworkDatabase $homework_db, string $title,
         $new_file)
     ) {
         rmdir($prod_path); // Supprime le répertoire en cas d'erreur.
-        return 'Erreur lors de l\'ajout du cours ';
+        return 'Erreur lors de l\'ajout du devoir maison.';
     }
 
     // Ajoute la nouvelle ressource à la base de données.
     if (!$homework_db->add($homework)) {
         rmdir($prod_path); // Supprime le répertoire en cas d'erreur.
         unlink($file); // Supprime le fichier en cas d'erreur.
-        $error = 'Erreur lors de l\'ajout du cours ';
+        $error = 'Erreur lors de l\'ajout du devoir maison.';
     }
 }

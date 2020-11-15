@@ -22,14 +22,14 @@
                         <ul class="sous-menus">
                             <li><a href="/premieres/courses">Cours</a></li>
                             <li><a href="/premieres/activities">Activités</a></li>
-                            <!-- <?php if ($connected): ?><li><a href="/premieres/homeworks">Devoirs maison</a></li><?php endif ?> -->
+                            <li><a href="/premieres/ds">Devoirs surveillés</a></li>
                         </ul>
                     </li>
                     <li><a<?php if ($tab === 'terminales'): ?> class="active"<?php endif ?> href="/terminales">Terminales</a>
                         <ul class="sous-menus">
                             <li><a href="/terminales/courses">Cours</a></li>
                             <li><a href="/terminales/activities">Activités</a></li>
-                            <!-- <?php if ($connected): ?><li><a href="/terminales/homeworks">Devoirs maison</a></li><?php endif ?> -->
+                            <li><a href="/terminales/ds">Devoirs surveillés</a></li>
                         </ul>
                     </li>
                     <li><a href="/homeworks">Devoirs maison</a></li>

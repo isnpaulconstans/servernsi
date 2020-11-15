@@ -29,7 +29,14 @@ if ($allow_edit &&
 $ressources = $ressource_db->get_all($class);
 $ressources_count = count($ressources);
 
-$ressource_word = $page_title;
-if ($page_title === 'activités') {
-    $ressource_word = 'activité';
+switch ($page_title) {
+    case 'activités':
+        $ressource_word = 'activité';
+        break;
+    case 'devoirs surveillés':
+        $ressource_word = 'énoncé ou un corrigé';
+        break;
+    case 'cours':
+        $ressource_word = 'cours';
+        break;
 }

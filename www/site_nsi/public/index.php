@@ -102,6 +102,14 @@ switch ($uri[1]) {
                 require VIEWS_PATH . 'ressources' .
                     DIRECTORY_SEPARATOR . 'ressources.php';
                 break;
+            case 'ds':
+                $page_title = 'devoirs surveillés';
+                $ressource_type = 'ds';
+                require CONTROLLERS_PATH . 'ressources' .
+                    DIRECTORY_SEPARATOR . 'ressources.php';
+                require VIEWS_PATH . 'ressources' .
+                    DIRECTORY_SEPARATOR . 'ressources.php';
+                break;
             case 'edit':
                 if ($student) {
                     echo ERROR401;
