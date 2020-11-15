@@ -17,16 +17,22 @@
             <nav>
                 <ul id="menu">
                     <li><a<?php if ($page_title === ''): ?> class="active"<?php endif ?> href="/">Accueil</a></li>
-                    <li><a<?php if ($page_title === 'actualités'): ?> class="active"<?php endif ?> href="/news">Actualités</a></li>
-                    <li><a<?php if ($tab === 'ressources'): ?> class="active"<?php endif ?> href="/ressources">Ressources</a>
+<!--                    <li><a<?php if ($page_title === 'actualités'): ?> class="active"<?php endif ?> href="/news">Actualités</a></li> -->
+                    <li><a<?php if ($tab === 'premieres'): ?> class="active"<?php endif ?> href="/premieres">Premières</a>
                         <ul class="sous-menus">
-                            <li><a<?php if ($page_title === 'cours'): ?> class="active"<?php endif ?> href="/ressources/courses">Cours</a></li>
-                            <li><a href="/ressources/activities">Activités</a></li>
-                            <?php if ($connected): ?>
-                            <li><a href="/ressources/homeworks">Devoirs maison</a></li>
-                            <?php endif ?>
+                            <li><a href="/premieres/courses">Cours</a></li>
+                            <li><a href="/premieres/activities">Activités</a></li>
+                            <!-- <?php if ($connected): ?><li><a href="/premieres/homeworks">Devoirs maison</a></li><?php endif ?> -->
                         </ul>
                     </li>
+                    <li><a<?php if ($tab === 'terminales'): ?> class="active"<?php endif ?> href="/terminales">Terminales</a>
+                        <ul class="sous-menus">
+                            <li><a href="/terminales/courses">Cours</a></li>
+                            <li><a href="/terminales/activities">Activités</a></li>
+                            <!-- <?php if ($connected): ?><li><a href="/terminales/homeworks">Devoirs maison</a></li><?php endif ?> -->
+                        </ul>
+                    </li>
+                    <li><a href="/homeworks">Devoirs maison</a></li>
                     <li><a<?php if ($page_title === 'services'): ?> class="active"<?php endif ?> href="/services">Services</a>
                         <ul class="sous-menus">
                             <li><a href="/jirafeau">Jirafeau</a></li>

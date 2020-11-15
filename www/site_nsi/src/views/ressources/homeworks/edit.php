@@ -28,4 +28,4 @@
     <button class="submit attention" type="submit">Supprimer le devoir maison</button>
 </form>
 
-<a class="button" href="/ressources/homeworks">Retour</a>
+<a class="button" href="/homeworks">Retour</a>

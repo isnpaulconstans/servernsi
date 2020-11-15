@@ -9,7 +9,7 @@ define('CONFIG', parse_ini_file(
 );
 
 // Fuseau horaire.
-sed -i -e "s/;date.timezone =/date.timezone = Europe\/Paris/" "/etc/php/7.2/fpm/php.ini"
+// sed -i -e "s/;date.timezone =/date.timezone = Europe\/Paris/" "/etc/php/7.2/fpm/php.ini"
 
 if(!function_exists('mime_content_type')) {
     echo "[!] L\'extension 'fileinfo' doit être activée dans le fichier 'php.ini'.";
@@ -35,7 +35,7 @@ try {
         );'
     );
     $pdo->exec(
-        'INSERT INTO user(username, password_hash, role, last_name, first_name, theme) 
+        'INSERT INTO user(username, password_hash, role, last_name, first_name, theme)
         VALUES (\'admin\', \'$2y$10$t1udBJ/lpW6X765.dDlSueEmEx/7NVjHNNZGEL.MqDMc1fm4VLCwq\', 2, \'Administrateur\', \'\', 0)'
     );
     $pdo->exec(
@@ -51,14 +51,16 @@ try {
         'CREATE TABLE `course` (
         	`id`	INTEGER NOT NULL PRIMARY KEY UNIQUE,
         	`title`	VARCHAR ( 255 ) NOT NULL,
-        	`file`	VARCHAR ( 255 ) NOT NULL
+        	`file`	VARCHAR ( 255 ) NOT NULL,
+            `class` VARCHAR ( 255 ) NOT NULL
         );'
     );
     $pdo->exec(
         'CREATE TABLE `activity` (
         	`id`	INTEGER NOT NULL PRIMARY KEY UNIQUE,
         	`title`	VARCHAR ( 255 ) NOT NULL,
-        	`file`	VARCHAR ( 255 ) NOT NULL
+        	`file`	VARCHAR ( 255 ) NOT NULL,
+            `class` VARCHAR ( 255 ) NOT NULL
         );'
     );
     $pdo->exec(

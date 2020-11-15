@@ -20,7 +20,7 @@
         <tr>
             <td><a href="/file?t=<?= $ressource_type ?>&amp;f=<?= rawurlencode($ressource->file) ?>"><?= $ressource->title ?></a></td>
             <?php if ($allow_edit): ?>
-            <td><a class="button" href="/ressources/edit?t=<?= $ressource_type ?>&amp;id=<?= $ressource->id ?>">Modifier</a></td>
+            <td><a class="button" href="/<?= $tab ?>/edit?t=<?= $ressource_type ?>&amp;id=<?= $ressource->id ?>">Modifier</a></td>
             <?php endif ?>
         </tr>
         <?php endforeach ?>

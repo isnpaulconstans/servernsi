@@ -21,7 +21,7 @@ if ($id < 0 || !in_array($type, $ressource_types)) {
         '\' n\'est pas un type de ressource valide.';
     return;
 }
-    
+
 // Définit le contenu de l'URL après 'ressources/'
 if ($type === 'activity') {
     $type_path = 'activities';
@@ -70,7 +70,7 @@ if (!empty($_POST['id']) && !empty($_POST['title'])) {
 
         $_SESSION['success'] = 1;
         // Redirection
-        header("Location: /ressources/edit?t=$type&id=$new_id");
+        header("Location: /$tab/edit?t=$type&id=$new_id");
         exit;
     }
 }
@@ -92,7 +92,7 @@ if (!empty($_POST['del'])) {
         return;
     }
 
-    $file = DATA_PATH . $type . DIRECTORY_SEPARATOR . 
+    $file = DATA_PATH . $type . DIRECTORY_SEPARATOR .
         $ressource->file;
 
     if (file_exists($file)) {
@@ -111,6 +111,6 @@ if (!empty($_POST['del'])) {
     $ressource_db->pdo->commit();
 
     // Redirection vers la liste des ressources associés.
-    header("Location: /ressources/$type_path");
+    header("Location: /$tab/$type_path");
     exit;
 }

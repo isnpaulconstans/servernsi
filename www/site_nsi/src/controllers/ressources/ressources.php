@@ -20,13 +20,13 @@ if ($allow_edit &&
     $_FILES['pdf_file']['error'] === 0
 ) {
     $error = ressource_add($ressource_db, $ressource_type, $_POST['title'],
-        $_FILES['pdf_file']);
+        $_FILES['pdf_file'], $class);
    if (empty($error)) {
         $success = 'La ressource a été ajouté.';
     }
 }
 
-$ressources = $ressource_db->get_all();
+$ressources = $ressource_db->get_all($class);
 $ressources_count = count($ressources);
 
 $ressource_word = $page_title;

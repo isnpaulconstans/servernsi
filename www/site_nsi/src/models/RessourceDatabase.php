@@ -51,10 +51,12 @@ class RessourceDatabase extends Database
      * @return array|null Liste de ressources.
      *
      */
-    public function get_all(): ?array
+    public function get_all(string $class): ?array
     {
         if ($query = $this->pdo->query('SELECT * FROM ' . $this->type .
-            ' ORDER BY id')
+                                       ' WHERE `class` = "' . $class .
+                                       '" ORDER BY id'
+                                      )
         ) {
             return $query->fetchAll(PDO::FETCH_CLASS, 'Ressource');
         }
@@ -71,9 +73,10 @@ class RessourceDatabase extends Database
     public function add(Ressource $ressource): bool
     {
         if ($query = $this->pdo->prepare('INSERT INTO ' . $this->type .
-            '(title, file) VALUES (?, ?)')
+            '(title, file, class) VALUES (?, ?, ?)')
         ) {
-            return $query->execute([$ressource->title, $ressource->file]);
+            return $query->execute([$ressource->title, $ressource->file,
+                                    $ressource->class]);
         }
         return false;
     }

@@ -28,4 +28,4 @@ foreach (CONFIG['production']['mime_type'] as $mime) {
 </form>
 <?php endif ?>
 
-<a class="button" href="/ressources/homeworks">Retour</a>
+<a class="button" href="/homeworks">Retour</a>

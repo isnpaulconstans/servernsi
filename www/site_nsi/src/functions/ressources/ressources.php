@@ -3,7 +3,7 @@ require_once CLASSES_PATH . 'Ressource.php';
 require_once MODELS_PATH . 'RessourceDatabase.php';
 
 function ressource_add(RessourceDatabase $ressource_db, string $ressource_type,
-    string $title, array $file
+                       string $title, array $file, string $class
 ) {
     $title = htmlentities(trim($title));
     if (empty($title)) {
@@ -28,7 +28,7 @@ function ressource_add(RessourceDatabase $ressource_db, string $ressource_type,
     }
 */
 
-    $ressource = new Ressource($title, $file['name']);
+    $ressource = new Ressource($title, $file['name'], $class);
     $new_file = DATA_PATH . $ressource_type . DIRECTORY_SEPARATOR .
         $file['name'];
 

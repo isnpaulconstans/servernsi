@@ -52,7 +52,7 @@ nav {
 nav li {
 	float: left;
 	display: inline-block;
-	width: 20%;
+	width: 16.666%;
 }
 
 nav li:hover {
@@ -170,7 +170,7 @@ h2 {
 
 .article_container:nth-child(odd) h2{
     text-align: left;
-	
+
 }
 
 /* Bouton */

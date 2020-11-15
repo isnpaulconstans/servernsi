@@ -25,11 +25,11 @@
 	    <td><a href="/file?t=<?= $ressource_type ?>&amp;f=<?= rawurlencode($homework->file) ?>"><?= $homework->title ?></a></td>
             <td><?php $date = new DateTime($homework->date); echo $week[$date->format('N')] . ' ' . $date->format('j') . ' ' . $month[$date->format('n')] . ' ' . $date->format('Y'); ?></td>
             <?php if ($allow_edit): ?>
-            <td><a class="button" href="/ressources/homeworks/view?id=<?= $homework->id ?>"><?php echo count($homework->returned) ?> / <?= $homework->students ?></a></td>
-            <td><a class="button" href="/ressources/homeworks/edit?id=<?= $homework->id ?>">Modifier</a></td>
+            <td><a class="button" href="/homeworks/view?id=<?= $homework->id ?>"><?php echo count($homework->returned) ?> / <?= $homework->students ?></a></td>
+            <td><a class="button" href="/homeworks/edit?id=<?= $homework->id ?>">Modifier</a></td>
             <?php endif ?>
             <?php if ($student): ?>
-            <td><a class="button" href="/ressources/homeworks/return?id=<?= $homework->id ?>">Rendre</a></td>
+            <td><a class="button" href="/homeworks/return?id=<?= $homework->id ?>">Rendre</a></td>
             <?php endif ?>
         </tr>
         <?php endforeach ?>

@@ -68,16 +68,20 @@ switch ($uri[1]) {
             require VIEWS_PATH . 'home.php';
             break;
         }
+/*
     case 'news':
         if ($uri_size === 2) {
             $page_title = 'actualités';
             require VIEWS_PATH . 'news.php';
             break;
         }
-    case 'ressources':
-        $tab = 'ressources';
+*/
+    case 'premieres':
+    case 'terminales':
+        $tab = $uri[1];
+        $class = $tab;
         if ($uri_size === 2) {
-            $page_title = 'ressources';
+            $page_title = $uri[1] === 'premieres' ? 'premières' : 'terminales';
             require VIEWS_PATH . 'ressources.php';
             break;
         }
@@ -98,67 +102,6 @@ switch ($uri[1]) {
                 require VIEWS_PATH . 'ressources' .
                     DIRECTORY_SEPARATOR . 'ressources.php';
                 break;
-            case 'homeworks':
-                if (!$connected) {
-                    echo ERROR401;
-                    break;
-                }
-                if ($uri_size === 3) {
-                    $page_title = 'devoirs maison';
-                    require CONTROLLERS_PATH . 'ressources' .
-                        DIRECTORY_SEPARATOR . 'homeworks.php';
-                    require VIEWS_PATH . 'ressources' .
-                        DIRECTORY_SEPARATOR . 'homeworks.php';
-                    break;
-                }
-                if ($uri_size != 4) {
-                    echo ERROR404;
-                    break;
-                }
-                switch ($uri[3]) {
-                    case 'edit':
-                        if ($student) {
-                            echo ERROR401;
-                            break;
-                        }
-                        $page_title = 'édition d\'un devoir maison';
-                        require CONTROLLERS_PATH . 'ressources' .
-                            DIRECTORY_SEPARATOR . 'homeworks' .
-                            DIRECTORY_SEPARATOR . 'edit.php';
-                        require VIEWS_PATH . 'ressources' .
-                            DIRECTORY_SEPARATOR . 'homeworks' .
-                            DIRECTORY_SEPARATOR . 'edit.php';
-                        break;
-                    case 'view':
-                        if ($student) {
-                            echo ERROR401;
-                            break;
-                        }
-                        $page_title = 'productions du devoir maison';
-                        require CONTROLLERS_PATH . 'ressources' .
-                            DIRECTORY_SEPARATOR . 'homeworks' .
-                            DIRECTORY_SEPARATOR . 'view.php';
-                        require VIEWS_PATH . 'ressources' .
-                            DIRECTORY_SEPARATOR . 'homeworks' .
-                            DIRECTORY_SEPARATOR . 'view.php';
-                        break;
-                    case 'return':
-                        if (!$student) {
-                            echo ERROR401;
-                            break;
-                        }
-                        $page_title = 'rendre un devoir maison';
-                        require CONTROLLERS_PATH . 'ressources' .
-                            DIRECTORY_SEPARATOR . 'homeworks' .
-                            DIRECTORY_SEPARATOR . 'return.php';
-                        require VIEWS_PATH . 'ressources' .
-                            DIRECTORY_SEPARATOR . 'homeworks' .
-                            DIRECTORY_SEPARATOR . 'return.php';
-                        break;
-                    default:
-                        echo ERROR404;
-                }
-                break;
             case 'edit':
                 if ($student) {
                     echo ERROR401;
@@ -174,6 +117,67 @@ switch ($uri[1]) {
                 echo ERROR404;
         }
         break;
+    case 'homeworks':
+            if (!$connected) {
+                echo ERROR401;
+                break;
+            }
+            if ($uri_size === 2) {
+                $page_title = 'devoirs maison';
+                require CONTROLLERS_PATH . 'ressources' .
+                    DIRECTORY_SEPARATOR . 'homeworks.php';
+                require VIEWS_PATH . 'ressources' .
+                    DIRECTORY_SEPARATOR . 'homeworks.php';
+                break;
+            }
+            if ($uri_size != 3) {
+                echo ERROR404;
+                break;
+            }
+            switch ($uri[2]) {
+                case 'edit':
+                    if ($student) {
+                        echo ERROR401;
+                        break;
+                    }
+                    $page_title = 'édition d\'un devoir maison';
+                    require CONTROLLERS_PATH . 'ressources' .
+                        DIRECTORY_SEPARATOR . 'homeworks' .
+                        DIRECTORY_SEPARATOR . 'edit.php';
+                    require VIEWS_PATH . 'ressources' .
+                        DIRECTORY_SEPARATOR . 'homeworks' .
+                        DIRECTORY_SEPARATOR . 'edit.php';
+                    break;
+                case 'view':
+                    if ($student) {
+                        echo ERROR401;
+                        break;
+                    }
+                    $page_title = 'productions du devoir maison';
+                    require CONTROLLERS_PATH . 'ressources' .
+                        DIRECTORY_SEPARATOR . 'homeworks' .
+                        DIRECTORY_SEPARATOR . 'view.php';
+                    require VIEWS_PATH . 'ressources' .
+                        DIRECTORY_SEPARATOR . 'homeworks' .
+                        DIRECTORY_SEPARATOR . 'view.php';
+                    break;
+                case 'return':
+                    if (!$student) {
+                        echo ERROR401;
+                        break;
+                    }
+                    $page_title = 'rendre un devoir maison';
+                    require CONTROLLERS_PATH . 'ressources' .
+                        DIRECTORY_SEPARATOR . 'homeworks' .
+                        DIRECTORY_SEPARATOR . 'return.php';
+                    require VIEWS_PATH . 'ressources' .
+                        DIRECTORY_SEPARATOR . 'homeworks' .
+                        DIRECTORY_SEPARATOR . 'return.php';
+                    break;
+                default:
+                    echo ERROR404;
+            }
+            break;
     case 'services':
         if ($uri_size === 2) {
             $page_title = 'services';

@@ -30,4 +30,4 @@
 <?php if (!empty($homework->returned)): ?>
 <a class="button" href="/file?t=production&amp;f=<?= $homework->id ?>">Récupérer toutes les productions (zip)</a>
 <?php endif ?>
-<a class="button" href="/ressources/homeworks">Retour</a>
+<a class="button" href="/homeworks">Retour</a>

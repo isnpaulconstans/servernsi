@@ -59,7 +59,7 @@ if (!empty($_POST['del'])) {
     if (file_exists($file)) {
         unlink($file);
     }
-    
+
     if (file_exists($file)) {
         // Annule les modifications dans la base de données.
         $homework_db->pdo->rollBack();
@@ -68,13 +68,13 @@ if (!empty($_POST['del'])) {
         return;
     }
 
-    del_dir(DATA_PATH . 'homework' . DIRECTORY_SEPARATOR . 
+    del_dir(DATA_PATH . 'homework' . DIRECTORY_SEPARATOR .
         $homework->prod_path);
     // Valide les modifications dans la base de données.
     $homework_db->pdo->commit();
 
     // Redirection vers la liste des ressources associés.
-    header('Location: /ressources/homeworks');
+    header("Location: /homeworks");
     exit;
 }
 

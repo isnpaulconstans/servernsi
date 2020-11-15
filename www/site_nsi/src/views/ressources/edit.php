@@ -21,4 +21,4 @@
     <button class="submit attention" type="submit">Supprimer le cours</button>
 </form>
 
-<a class="button" href="/ressources/<?= $type_path ?>">Retour</a>
+<a class="button" href="/<?= $tab ?>/<?= $type_path ?>">Retour</a>

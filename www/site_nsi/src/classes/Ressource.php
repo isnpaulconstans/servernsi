@@ -15,6 +15,8 @@ class Ressource
     public $title;
     /** @var string $file Emplacement du fichier de la ressources */
     public $file;
+    /** @var array $class Classe(s) ayant le devoir maison */
+    public $class;
 
     /**
      * @param string $title Titre
@@ -26,6 +28,7 @@ class Ressource
     public function __construct(
         string $title   = null,
         string $file    = null,
+        string $class   = null,
         int    $id      = null
         )
     {
@@ -34,6 +37,9 @@ class Ressource
         }
         if (!empty($file)) {
             $this->file = $file;
+        }
+        if (!empty($class)) {
+            $this->class = $class;
         }
         if (!empty($id)) {
             $this->id = $id;

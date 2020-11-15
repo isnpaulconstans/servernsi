@@ -13,8 +13,6 @@ class Homework extends Ressource
 {
     /** @var string $prod_path Emplacement du repertoire des productions */
     public $prod_path;
-    /** @var array $class Classe(s) ayant le devoir maison */
-    public $class;
     /** @var array $returned Élève(s) ayant rendu le devoir maison */
     public $returned;
     /** @var string $date Date de rendu du devoir maison */
