@@ -58,7 +58,7 @@ if ($connected = is_connected()) {
 }
 
 ob_start();
-
+$tab = null;  // Titre de l'onglet.
 switch ($uri[1]) {
 //case 'test': phpinfo(); break;
     case '':
@@ -75,6 +75,7 @@ switch ($uri[1]) {
             break;
         }
     case 'ressources':
+        $tab = 'ressources';
         if ($uri_size === 2) {
             $page_title = 'ressources';
             require VIEWS_PATH . 'ressources.php';
@@ -185,12 +186,14 @@ switch ($uri[1]) {
             break;
         }
         $page_title = 'connexion';
+        $tab = 'connexion';
         require CONTROLLERS_PATH . 'login.php';
         require VIEWS_PATH . 'login.php';
         break;
     case 'contact':
         if ($uri_size === 2) {
             $page_title = 'contact';
+            $tab = 'connexion';
             require VIEWS_PATH . 'contact.php';
             break;
         }
@@ -204,6 +207,7 @@ switch ($uri[1]) {
             echo ERROR401;
             break;
         }
+        $tab = 'connexion';
         switch ($uri[1]) {
             case 'logout':
                 if ($uri_size === 2) {

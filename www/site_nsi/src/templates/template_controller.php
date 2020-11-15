@@ -15,11 +15,15 @@ header("Content-Security-Policy: " .
        "frame-ancestors 'none'; X-Frame-Options DENY;" .
        "base-uri 'self'; form-action 'self'");
 header("X-Content-Type-Options: nosniff");
- */ 
+ */
 
 
 if (!isset($page_title)) {
     $page_title = null;
+}
+
+if (!isset($tab)) {
+    $tab = null;
 }
 
 $theme = 'light';
