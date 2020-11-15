@@ -43,7 +43,7 @@
 <?php endif ?>
 
 <?php if ($allow_edit): ?>
-<h2>Ajouter un sujet de devoir maison au format PDF</h2>
+<h2>Ajouter un sujet de devoir maison</h2>
 <form method="post" enctype="multipart/form-data">
     <label for="title">Titre :</label>
     <input id="title" type="text" name="title" required>

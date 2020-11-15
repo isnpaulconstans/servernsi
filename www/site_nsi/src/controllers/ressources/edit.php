@@ -34,7 +34,7 @@ switch ($type) {
         $type_path = 'ds';
         break;
     default:
-        $error = "Type de ressource non reconnu."
+        $error = "Type de ressource non reconnu.";
         return;
 }
 

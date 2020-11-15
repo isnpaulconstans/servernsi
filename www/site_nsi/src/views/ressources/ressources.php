@@ -33,7 +33,7 @@
 <h2>Il n'y a pas de ressource disponible.</h2>
 <?php endif ?>
 <?php if ($allow_edit): ?>
-<h2>Ajouter un<?= $ressource_word === 'activité' ? 'e' : '' ?> <?= $ressource_word ?> au format PDF</h2>
+<h2>Ajouter un<?= $ressource_word === 'activité' ? 'e' : '' ?> <?= $ressource_word ?></h2>
 <form method="post" enctype="multipart/form-data">
     <label for="title">Titre :</label>
     <input id="title" type="text" name="title" required>
