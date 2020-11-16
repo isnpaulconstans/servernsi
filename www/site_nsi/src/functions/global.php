@@ -134,7 +134,7 @@ function del_dir($target) {
 function is_accepted(array $file) {
     $file_info = pathinfo($file['name']);
     return in_array($file_info['extension'], CONFIG['production']['extension'])
-        && in_array($file['type'], CONFIG['production']['mime_type']);
+        || in_array($file['type'], CONFIG['production']['mime_type']);
 }
 
 /**
