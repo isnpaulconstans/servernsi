@@ -4,19 +4,6 @@
 <div class="article_container">
     <div>
         <h2>
-            Lien
-        </h2>
-        <p>
-            Pour l'instant, la plupart des cours sont hébergés sur notre autre site.
-        </p>
-        <a class="button" href="https://isn-lpc.pagesperso-orange.fr/pageNSI.html" target="_blank">Le site NSI</a>
-    </div>
-    <img src="/images/logoNSI.png">
-</div>
-
-<div class="article_container">
-    <div>
-        <h2>
             Lycée Paul Constans
         </h2>
         <p>
