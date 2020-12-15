@@ -39,6 +39,10 @@ nbgrader_global_config = """from nbgrader.auth import JupyterHubAuthPlugin
 c = get_config()
 c.Exchange.path_includes_course = True
 c.Authenticator.plugin_class = JupyterHubAuthPlugin
+c.IncludeHeaderFooter.header = "/usr/share/jupyter/header.ipynb"
+c.IncludeHeaderFooter.footer = "/usr/share/jupyter/footer.ipynb"
+c.ClearSolutions.code_stub = {'python': '# TAPEZ VOTRE CODE ICI', 'matlab': "% YOUR CODE HERE\nerror('No Answer Given!')", 'octave': "% YOUR CODE HERE\nerror('No Answer Given!')", 'java': '// YOUR CODE HERE'}
+c.ClearSolutions.text_stub = 'VOTRE REPONSE'
 """
 
 # Basic jupyterhub config
@@ -517,6 +521,11 @@ def install_all(args):
 
     os.makedirs(exchange_root)
     os.chmod(exchange_root,0o777)
+
+    os.symlink(src="/home/profnsi/install/header.ipynb",
+               dst="/usr/share/jupyter/header.ipynb")
+    os.symlink(src="/home/profnsi/install/footer.ipynb",
+               dst="/usr/share/jupyter/footer.ipynb")
     os.makedirs('/etc/jupyter/', exist_ok=True)
     with open('/etc/jupyter/nbgrader_config.py', "w") as f:
         f.write(nbgrader_global_config)
