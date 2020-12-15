@@ -26,7 +26,7 @@ function homework_add(HomeworkDatabase $homework_db, string $title,
             'selectionnées';
     }
     // Le fichier est trop lourd.
-    if ($_FILES['pdf_file']['size'] > 1000000) {
+    if ($_FILES['pdf_file']['size'] > 100000000) {
         return 'Le fichier envoyé est trop volumineux';
     }
 

@@ -10,7 +10,7 @@ function ressource_add(RessourceDatabase $ressource_db, string $ressource_type,
         return 'Le titre doit être saisi';
     }
     // Le fichier n'est pas trop lourd.
-    if ($file['size'] > 10000000) {
+    if ($file['size'] > 100000000) {
         return 'Le fichier envoyé est trop lourd';
     }
 

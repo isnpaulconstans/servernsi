@@ -27,7 +27,7 @@ if (!$returned &&
     !empty($_FILES['file']) &&
     $_FILES['file']['error'] === 0
 ) {
-    if ($_FILES['file']['size'] > 1000000) {
+    if ($_FILES['file']['size'] > 100000000) {
         $error = 'Le fichier est trop lourd.';
         return;
     }
@@ -35,9 +35,7 @@ if (!$returned &&
     $filename = $_FILES['file']['name'];
     $file = pathinfo($filename);
     // Le format du fichier est autorisé
-    if (!in_array($file['extension'], CONFIG['production']['extension']) ||
-        !in_array($_FILES['file']['type'], CONFIG['production']['mime_type'])
-    ) {
+    if (!is_accepted($_FILES['file'])) {
         $error = 'Le format du fichier est incorrect.';
         return;
     }
