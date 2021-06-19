@@ -265,7 +265,7 @@ def add_system_user(user, password, grader=False, course=None):
             raise MissingParameter('--password')
         assert grader or course is not None, "Il faut un groupe (grader ou course)"
         group = "grader" if grader else f"eleves_{course}_{ANNEE}"
-        os.system(f"""adduser --disabled-password --gecos "" --ingroup {group} {user}""")
+        os.system(f"""adduser --disabled-password --gecos "" --ingroup {group} --home /home/{group}/{user} {user}""")
         with subprocess.Popen(['passwd',user], stdin=subprocess.PIPE, encoding='utf-8') as proc:
             proc.stdin.write('{}\n'.format(password))
             proc.stdin.write('{}\n'.format(password))
@@ -462,9 +462,9 @@ def del_user(args):
     course = args.course_name
     print(f"- Deleting user {user}")
     print("------------------------------")
-    del_jupyter_user(user)
     if course:
         del_nbgrader_user(user, course)
+    del_jupyter_user(user)
     del_system_user(user)
 
 def import_students(args):
