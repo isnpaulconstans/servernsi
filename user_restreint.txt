@@ -1,0 +1,31 @@
+groupadd groupe_restreint
+
+useradd user_restreint -m -d /home/user_restreint/ -s /bin/false -g groupe_restreint
+passwd user_restreint
+New password: xxxxxxxxxx
+Retype new password: xxxxxxxxxx
+passwd: password updated successfully
+
+chmod 755 /home/user_restreint/
+chown root:root /home/user_restreint/
+chmod -R 755 /home/user_restreint/*
+chown -R user_restreint:user_restreint /home/user_restreint/*
+
+#########################################
+
+vim /etc/ssh/sshd_config
+
+## Configuration à ajouter en fin de fichier
+Subsystem       sftp    internal-sftp
+
+Match Group groupe_restreint
+         ChrootDirectory /home/%u
+         ForceCommand internal-sftp
+         AllowTCPForwarding no
+         X11Forwarding no
+
+##############################################
+
+service ssh restart
+
+
