@@ -12,7 +12,6 @@ import random
 import string
 
 JUPYTER_ADMIN = 'profnsi'
-ADMIN_PWD = 'prof42205'
 
 deps = [
 'apt update',
@@ -24,6 +23,10 @@ deps = [
 'pip3 install -U jupyterhub',
 'pip3 install nbgrader',
 'pip3 install metakernel',  # Pour avoir pythontutor avec %%tutor
+# configuration de adduser pour autoriser un . dans le nom
+'sed -E -i "s/.*NAME_REGEX=.*/NAME_REGEX=\"\^\[a-z\]\[-a-z0-9_.\]\*\[a-z0-9_\]$\"/" /etc/adduser.conf',
+# et regrouper les utilisateurs par lettre
+'sed -E -i "s/.*LETTERHOMES=.*/LETTERHOMES=yes/" /etc/adduser.conf',
 ]
 
 srv_root="/srv/nbgrader"
@@ -41,7 +44,7 @@ c.Exchange.path_includes_course = True
 c.Authenticator.plugin_class = JupyterHubAuthPlugin
 c.IncludeHeaderFooter.header = "/usr/share/jupyter/header.ipynb"
 c.IncludeHeaderFooter.footer = "/usr/share/jupyter/footer.ipynb"
-c.ClearSolutions.code_stub = {'python': '# TAPEZ VOTRE CODE ICI', 'matlab': "% YOUR CODE HERE\nerror('No Answer Given!')", 'octave': "% YOUR CODE HERE\nerror('No Answer Given!')", 'java': '// YOUR CODE HERE'}
+c.ClearSolutions.code_stub = {'python': '# TAPEZ VOTRE CODE ICI', 'matlab': "% YOUR CODE HERE\\nerror('No Answer Given!')", 'octave': "% YOUR CODE HERE\\nerror('No Answer Given!')", 'java': '// YOUR CODE HERE'}
 c.ClearSolutions.text_stub = 'VOTRE REPONSE'
 """
 
@@ -80,7 +83,7 @@ WantedBy=multi-user.target
 """
 
 course_config_base="""c = get_config()
-c.CourseDirectory.root = '/home/{grader}/{course}'
+c.CourseDirectory.root = '{home}/{course}'
 c.CourseDirectory.course_id = '{course}'
 """
 
@@ -162,6 +165,12 @@ def get_token_for_user(user):
     return token
 
 
+def get_home_dir(user):
+    """Renvoie le répertoire home de l'utilisateur."""
+    usr = pwd.getpwnam(user)
+    return usr.pw_dir
+
+
 def call_api(method, path, datas=None):
     dispatcher = {
         'get': requests.get,
@@ -199,14 +208,14 @@ def get_service_repr(course, grader, port, token):
               '--debug',
           ],
           'user': grader,
-          'cwd': '/home/{}'.format(grader),
+          'cwd': get_home_dir(grader),
           'api_token': '{}'.format(token),
     }
     return repr(service)
 
 
-def get_course_config(grader, course):
-    return course_config_base.format(grader=grader, course=course)
+def get_course_config(home, course):
+    return course_config_base.format(home=home, course=course)
 
 
 def get_next_port():
@@ -229,8 +238,7 @@ def get_next_port():
 def toggle_nbgrader_component(user, component, enable=True):
     if component not in ['create_assignment','formgrader','assignment_list','course_list']:
         raise KeyError
-    usr = pwd.getpwnam(user)
-    home = usr.pw_dir
+    home = get_home_dir(user)
     if enable:
         action = 'enable'
     else:
@@ -249,7 +257,6 @@ def toggle_nbgrader_component(user, component, enable=True):
 
 def add_system_user(user, password, grader=False):
     """add user to system if necessary"""
-    # TODO modifier /etc/adduser.conf pour mettre les utilisateurs par groupe et par lettre
     try:
         pwd.getpwnam(user)
     except KeyError:
@@ -279,7 +286,8 @@ def add_jupyter_user(user):
 
 def add_nbgrader_user(user, first_name, last_name, course):
     print(f"add {user} ({last_name}, {first_name}) to course {course}")
-    course_dir = f"/home/grader-{course}/{course}"
+    home = get_home_dir(f"grader-{course}")
+    course_dir = f"{home}/{course}"
 #    curdir = os.getcwd()
 #    os.chdir(course_dir)
     os.system(f"""nbgrader db student add {user} """
@@ -292,7 +300,8 @@ def add_nbgrader_user(user, first_name, last_name, course):
 
 def del_nbgrader_user(user, course):
     print(f"del {user} from course {course}")
-    course_dir = f"/home/grader-{course}/{course}"
+    home = get_home_dir(f"grader-{course}")
+    course_dir = f"{home}/{course}"
     for subdir in ("autograded", "feedback", "submitted"):
         os.system(f"rm -rf {course_dir}/{subdir}/{user}")
     os.system(f"""nbgrader db student remove {user} """
@@ -390,7 +399,7 @@ def add_course(args):
     os.makedirs(home_jupyter_dir, exist_ok=True)
     os.chown(home_jupyter_dir, uid, gid)
     with open(os.path.join(home_jupyter_dir,'nbgrader_config.py'),'w') as f:
-        f.write(get_course_config(grader_account, course))
+        f.write(get_course_config(home, course))
     os.system('systemctl restart jupyterhub')
 
 
@@ -522,15 +531,22 @@ def install_all(args):
     os.makedirs(exchange_root)
     os.chmod(exchange_root,0o777)
 
-    os.symlink(src="/home/profnsi/install/header.ipynb",
-               dst="/usr/share/jupyter/header.ipynb")
-    os.symlink(src="/home/profnsi/install/footer.ipynb",
-               dst="/usr/share/jupyter/footer.ipynb")
+    os.system('addgroup grader')
+
+    home = get_home_dir(JUPYTER_ADMIN)
+    try:
+        os.symlink(src=f"{home}/install/header.ipynb",
+                   dst="/usr/share/jupyter/header.ipynb")
+        os.symlink(src=f"{home}/install/footer.ipynb",
+                   dst="/usr/share/jupyter/footer.ipynb")
+    except FileExistsError:
+        pass
+
     os.makedirs('/etc/jupyter/', exist_ok=True)
     with open('/etc/jupyter/nbgrader_config.py', "w") as f:
         f.write(nbgrader_global_config)
 
-    os.makedirs("/etc/ipython/", exists_ok=True)
+    os.makedirs("/etc/ipython/", exist_ok=True)
     with open("/etc/ipython/ipython_config.py", "w") as f:
         f.write(ipython_config)
 
