@@ -5,13 +5,14 @@ import requests
 from requests.exceptions import HTTPError
 from simplejson.errors import JSONDecodeError
 import os
-import stat
 import pwd
 import re
 import random
 import string
+from nbgrader.api import Gradebook
 
 JUPYTER_ADMIN = 'profnsi'
+ANNEE = 2021
 
 deps = [
 'apt update',
@@ -26,7 +27,7 @@ deps = [
 # configuration de adduser pour autoriser un . dans le nom
 'sed -E -i "s/.*NAME_REGEX=.*/NAME_REGEX=\"\^\[a-z\]\[-a-z0-9_.\]\*\[a-z0-9_\]$\"/" /etc/adduser.conf',
 # et regrouper les utilisateurs par lettre
-'sed -E -i "s/.*LETTERHOMES=.*/LETTERHOMES=yes/" /etc/adduser.conf',
+# 'sed -E -i "s/.*LETTERHOMES=.*/LETTERHOMES=yes/" /etc/adduser.conf',
 ]
 
 srv_root="/srv/nbgrader"
@@ -255,15 +256,16 @@ def toggle_nbgrader_component(user, component, enable=True):
                         '--user',"nbgrader.server_extensions.{}".format(component)],
                         env={'HOME':home,'USER':user})
 
-def add_system_user(user, password, grader=False):
+def add_system_user(user, password, grader=False, course=None):
     """add user to system if necessary"""
     try:
         pwd.getpwnam(user)
     except KeyError:
         if not password:
             raise MissingParameter('--password')
-        opt = "--ingroup grader" if grader else ""
-        os.system(f"""adduser --disabled-password --gecos "" {opt} {user}""")
+        assert grader or course is not None, "Il faut un groupe (grader ou course)"
+        group = "grader" if grader else f"eleves_{course}_{ANNEE}"
+        os.system(f"""adduser --disabled-password --gecos "" --ingroup {group} {user}""")
         with subprocess.Popen(['passwd',user], stdin=subprocess.PIPE, encoding='utf-8') as proc:
             proc.stdin.write('{}\n'.format(password))
             proc.stdin.write('{}\n'.format(password))
@@ -288,26 +290,29 @@ def add_nbgrader_user(user, first_name, last_name, course):
     print(f"add {user} ({last_name}, {first_name}) to course {course}")
     home = get_home_dir(f"grader-{course}")
     course_dir = f"{home}/{course}"
-#    curdir = os.getcwd()
-#    os.chdir(course_dir)
-    os.system(f"""nbgrader db student add {user} """
-              f"""--last-name="{last_name}" """
-              f"""--first-name="{first_name}" """
-              f"""--course-dir={course_dir} """
-#              f"""--CourseDirectory.course_id={course} """
-              )
-#    os.chdir(curdir)
+    gradebook = Gradebook(f"sqlite:///{course_dir}/gradebook.db", course_id=course)
+    gradebook.update_or_create_student(user, first_name=first_name, last_name=last_name)
+    gradebook.close()
+#    os.system(f"""nbgrader db student add {user} """
+#              f"""--last-name="{last_name}" """
+#              f"""--first-name="{first_name}" """
+#              f"""--course-dir={course_dir} """
+##              f"""--CourseDirectory.course_id={course} """
+#              )
 
 def del_nbgrader_user(user, course):
     print(f"del {user} from course {course}")
     home = get_home_dir(f"grader-{course}")
     course_dir = f"{home}/{course}"
+    gradebook = Gradebook(f"sqlite:///{course_dir}/gradebook.db", course_id=course)
+    gradebook.remove_student(user)
+    gradebook.close()
     for subdir in ("autograded", "feedback", "submitted"):
         os.system(f"rm -rf {course_dir}/{subdir}/{user}")
-    os.system(f"""nbgrader db student remove {user} """
-              f"""--course-dir={course_dir} """
-              f"""--force """
-              )
+#    os.system(f"""nbgrader db student remove {user} """
+#              f"""--course-dir={course_dir} """
+#              f"""--force """
+#              )
 
 def del_jupyter_user(user):
     print(f"delete jupyter user {user}")
@@ -446,7 +451,7 @@ def add_student(args):
     check_course_exists(course)
     print(f"- Adding student {student} to course : {course}")
     print("------------------------------")
-    add_system_user(student, password)
+    add_system_user(student, password, course=course)
     add_jupyter_user(student)
     add_user_group(student, f"nbgrader-{course}")
     toggle_nbgrader_component(student, 'assignment_list')
@@ -624,4 +629,5 @@ def main():
         print(e)
 
 if __name__ == "__main__":
+    print(f"Année en cours ({ANNEE}) à changer si besoin dans le fichier.")
     main()
