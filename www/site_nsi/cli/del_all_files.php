@@ -11,6 +11,21 @@ define('CONFIG', parse_ini_file(
     )
 );
 
+function del_dir($target) {
+    if (is_dir($target)) {
+        $files = glob($target . '*', GLOB_MARK);
+
+        foreach ($files as $file){
+            del_dir($file);
+        }
+
+        rmdir( $target );
+    } elseif (is_file($target)) {
+        unlink($target);
+    }
+}
+
+
 $pdo = new PDO(CONFIG['database']['dsn'],
     CONFIG['database']['user'],
     CONFIG['database']['password']
