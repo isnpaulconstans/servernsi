@@ -16,12 +16,15 @@
 <div class="article_container">
     <div>
         <h2>
-            Numérique et Sciences Informatique
+            Numérique et Sciences Informatiques
         </h2>
         <p>
-	    Cette spécialité fait partie des 12 choix possibles de première (4h) et de terminale (6h). Vous pourrez trouver sur ce site les cours et TP proposés en classe ainsi que des liens vers différentes ressources.
-	</p>
-	<a class="button" href="https://eduscol.education.fr/cid144156/nsi-bac-2021.html" target="_blank">Programme officiel</a>
+            Cette spécialité fait partie des 12 choix possibles de première (4h) et de terminale (6h). Vous pourrez trouver sur ce site les cours et TP proposés en classe.
+        </p>
+        <p>
+            Plus généralement, vous pourrez trouver ci dessous différentes ressources comme le programme officiel, la banque d'épreuves pratiques ou des informations sur le grand oral.
+        </p>
+        <a class="button" href="https://eduscol.education.fr/2068/programmes-et-ressources-en-numerique-et-sciences-informatiques-voie-gt" target="_blank">Ressources</a>
    </div>
     <img src="/images/cours_numerique.jpg">
 </div>
